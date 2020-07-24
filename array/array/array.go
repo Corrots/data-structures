@@ -2,6 +2,7 @@ package array
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 )
@@ -45,10 +46,10 @@ func (arr *Array) AddFirst(e int) {
 // 向数组中指定位置i添加元素e
 func (arr *Array) Add(i, e int) {
 	if arr.size == len(arr.data) {
-		panic("Add failed, Array is full")
+		log.Fatal("Add failed, Array is full")
 	}
 	if i < 0 || i > arr.size {
-		panic("Add failed, required i >= 0 and <= size ")
+		log.Fatal("Add failed, required i >= 0 and <= size")
 	}
 	for j := arr.size - 1; j >= i; j-- {
 		arr.data[j+1] = arr.data[j]
@@ -59,16 +60,44 @@ func (arr *Array) Add(i, e int) {
 
 func (arr *Array) Get(i int) int {
 	if i < 0 || i > arr.size {
-		panic("Add failed, required i >= 0 and <= size ")
+		log.Fatal("Add failed, required i >= 0 and <= size")
 	}
 	return arr.data[i]
 }
 
 func (arr *Array) Set(i, e int) {
 	if i < 0 || i > arr.size {
-		panic("Add failed, required i >= 0 and <= size ")
+		log.Fatal("Add failed, required i >= 0 and <= size")
 	}
 	arr.data[i] = e
+}
+
+func (arr *Array) Contains(e int) bool {
+	for i := 0; i < arr.size; i++ {
+		if arr.data[i] == e {
+			return true
+		}
+	}
+	return false
+}
+
+func (arr *Array) Find(e int) int {
+	for i := 0; i < arr.size; i++ {
+		if arr.data[i] == e {
+			return i
+		}
+	}
+	return -1
+}
+
+func (arr *Array) Delete(i int) {
+	if i < 0 || i > arr.size {
+		log.Fatal("Delete failed, required i >= 0 and <= size")
+	}
+	for j := i; j < arr.size; j++ {
+		arr.data[j] = arr.data[j+1]
+	}
+	arr.size--
 }
 
 func (arr *Array) String() string {

@@ -16,4 +16,8 @@ func main() {
 	fmt.Println(arr)
 	arr.AddFirst(-1)
 	fmt.Println(arr)
+	arr.Delete(0)
+	fmt.Println(arr)
+	arr.Delete(1)
+	fmt.Println(arr)
 }
