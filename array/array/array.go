@@ -1,8 +1,9 @@
 package array
 
 import (
-	"errors"
 	"fmt"
+	"strconv"
+	"strings"
 )
 
 type Array struct {
@@ -11,27 +12,14 @@ type Array struct {
 }
 
 func New(cap int) *Array {
-	if cap == 0 {
-		cap = 10
-	}
 	return &Array{
 		data: make([]int, cap),
 		size: 0,
 	}
 }
 
-func (arr *Array) String() string {
-	fmt.Print(arr.data)
-	res := fmt.Sprintf("Array: size: %d, capacity: %d\n", arr.size, len(arr.data))
-	res += "["
-	for i := 0; i < arr.size; i++ {
-		res += string(arr.data[i])
-		if i != arr.size-1 {
-			res += " "
-		}
-	}
-	res += "]"
-	return res
+func Init() *Array {
+	return New(10)
 }
 
 func (arr *Array) Len() int {
@@ -46,25 +34,53 @@ func (arr *Array) IsEmpty() bool {
 	return arr.size == 0
 }
 
-func (arr *Array) AddLast(e int) error {
-	return arr.Add(arr.size, e)
+func (arr *Array) AddLast(e int) {
+	arr.Add(arr.size, e)
 }
 
-func (arr *Array) AddFirst(e int) error {
-	return arr.Add(0, e)
+func (arr *Array) AddFirst(e int) {
+	arr.Add(0, e)
 }
 
-func (arr *Array) Add(index, e int) error {
+// 向数组中指定位置i添加元素e
+func (arr *Array) Add(i, e int) {
 	if arr.size == len(arr.data) {
-		return errors.New("Add failed, Array is full ")
+		panic("Add failed, Array is full")
 	}
-	if index < 0 || index > arr.size {
-		return errors.New("Add failed, required index >= 0 and <= size ")
+	if i < 0 || i > arr.size {
+		panic("Add failed, required i >= 0 and <= size ")
 	}
-	for i := arr.size - 1; i >= index; i-- {
-		arr.data[i+1] = arr.data[i]
+	for j := arr.size - 1; j >= i; j-- {
+		arr.data[j+1] = arr.data[j]
 	}
-	arr.data[index] = e
+	arr.data[i] = e
 	arr.size++
-	return nil
+}
+
+func (arr *Array) Get(i int) int {
+	if i < 0 || i > arr.size {
+		panic("Add failed, required i >= 0 and <= size ")
+	}
+	return arr.data[i]
+}
+
+func (arr *Array) Set(i, e int) {
+	if i < 0 || i > arr.size {
+		panic("Add failed, required i >= 0 and <= size ")
+	}
+	arr.data[i] = e
+}
+
+func (arr *Array) String() string {
+	var res strings.Builder
+	res.WriteString(fmt.Sprintf("Array: size: %d, capacity: %d\n", arr.size, len(arr.data)))
+	res.WriteString("[")
+	for i := 0; i < arr.size; i++ {
+		res.WriteString(strconv.Itoa(arr.data[i]))
+		if i != arr.size-1 {
+			res.WriteString(", ")
+		}
+	}
+	res.WriteString("]")
+	return res.String()
 }

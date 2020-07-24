@@ -12,4 +12,8 @@ func main() {
 		arr.AddLast(i)
 	}
 	fmt.Println(arr)
+	arr.Add(1, 100)
+	fmt.Println(arr)
+	arr.AddFirst(-1)
+	fmt.Println(arr)
 }
