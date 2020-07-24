@@ -90,14 +90,31 @@ func (arr *Array) Find(e int) int {
 	return -1
 }
 
-func (arr *Array) Delete(i int) {
+func (arr *Array) Remove(i int) int {
 	if i < 0 || i > arr.size {
-		log.Fatal("Delete failed, required i >= 0 and <= size")
+		log.Fatal("Remove failed, required i >= 0 and <= size")
 	}
-	for j := i; j < arr.size; j++ {
-		arr.data[j] = arr.data[j+1]
+	ret := arr.data[i]
+	for j := i + 1; j < arr.size; j++ {
+		arr.data[j-1] = arr.data[j]
 	}
 	arr.size--
+	return ret
+}
+
+func (arr *Array) RemoveFirst() int {
+	return arr.Remove(0)
+}
+
+func (arr *Array) RemoveLast() int {
+	return arr.Remove(arr.size - 1)
+}
+
+func (arr *Array) RemoveElement(e int) {
+	i := arr.Find(e)
+	if i != -1 {
+		arr.Remove(i)
+	}
 }
 
 func (arr *Array) String() string {
