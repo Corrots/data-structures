@@ -3,18 +3,17 @@ package array
 import (
 	"fmt"
 	"log"
-	"strconv"
 	"strings"
 )
 
 type Array struct {
-	data []int
+	data []interface{}
 	size int
 }
 
 func New(cap int) *Array {
 	return &Array{
-		data: make([]int, cap),
+		data: make([]interface{}, cap),
 		size: 0,
 	}
 }
@@ -35,21 +34,21 @@ func (arr *Array) IsEmpty() bool {
 	return arr.size == 0
 }
 
-func (arr *Array) AddLast(e int) {
+func (arr *Array) AddLast(e interface{}) {
 	arr.Add(arr.size, e)
 }
 
-func (arr *Array) AddFirst(e int) {
+func (arr *Array) AddFirst(e interface{}) {
 	arr.Add(0, e)
 }
 
 // 向数组中指定位置i添加元素e
-func (arr *Array) Add(i, e int) {
-	if arr.size == len(arr.data) {
-		log.Fatal("Add failed, Array is full")
-	}
+func (arr *Array) Add(i int, e interface{}) {
 	if i < 0 || i > arr.size {
 		log.Fatal("Add failed, required i >= 0 and <= size")
+	}
+	if arr.size == len(arr.data) {
+		arr.resize(2 * len(arr.data))
 	}
 	for j := arr.size - 1; j >= i; j-- {
 		arr.data[j+1] = arr.data[j]
@@ -58,21 +57,21 @@ func (arr *Array) Add(i, e int) {
 	arr.size++
 }
 
-func (arr *Array) Get(i int) int {
+func (arr *Array) Get(i int) interface{} {
 	if i < 0 || i > arr.size {
 		log.Fatal("Add failed, required i >= 0 and <= size")
 	}
 	return arr.data[i]
 }
 
-func (arr *Array) Set(i, e int) {
+func (arr *Array) Set(i int, e interface{}) {
 	if i < 0 || i > arr.size {
 		log.Fatal("Add failed, required i >= 0 and <= size")
 	}
 	arr.data[i] = e
 }
 
-func (arr *Array) Contains(e int) bool {
+func (arr *Array) Contains(e interface{}) bool {
 	for i := 0; i < arr.size; i++ {
 		if arr.data[i] == e {
 			return true
@@ -81,7 +80,7 @@ func (arr *Array) Contains(e int) bool {
 	return false
 }
 
-func (arr *Array) Find(e int) int {
+func (arr *Array) Find(e interface{}) int {
 	for i := 0; i < arr.size; i++ {
 		if arr.data[i] == e {
 			return i
@@ -90,7 +89,7 @@ func (arr *Array) Find(e int) int {
 	return -1
 }
 
-func (arr *Array) Remove(i int) int {
+func (arr *Array) Remove(i int) interface{} {
 	if i < 0 || i > arr.size {
 		log.Fatal("Remove failed, required i >= 0 and <= size")
 	}
@@ -99,18 +98,22 @@ func (arr *Array) Remove(i int) int {
 		arr.data[j-1] = arr.data[j]
 	}
 	arr.size--
+	arr.data[arr.size] = nil // loitering objects != memory leak
+	if arr.size == len(arr.data)/4 && len(arr.data)/2 != 0 {
+		arr.resize(len(arr.data) / 2)
+	}
 	return ret
 }
 
-func (arr *Array) RemoveFirst() int {
+func (arr *Array) RemoveFirst() interface{} {
 	return arr.Remove(0)
 }
 
-func (arr *Array) RemoveLast() int {
+func (arr *Array) RemoveLast() interface{} {
 	return arr.Remove(arr.size - 1)
 }
 
-func (arr *Array) RemoveElement(e int) {
+func (arr *Array) RemoveElement(e interface{}) {
 	i := arr.Find(e)
 	if i != -1 {
 		arr.Remove(i)
@@ -122,11 +125,21 @@ func (arr *Array) String() string {
 	res.WriteString(fmt.Sprintf("Array: size: %d, capacity: %d\n", arr.size, len(arr.data)))
 	res.WriteString("[")
 	for i := 0; i < arr.size; i++ {
-		res.WriteString(strconv.Itoa(arr.data[i]))
+		res.WriteString(fmt.Sprintf("%v", arr.data[i]))
 		if i != arr.size-1 {
 			res.WriteString(", ")
 		}
 	}
 	res.WriteString("]")
 	return res.String()
+}
+
+func (arr *Array) resize(n int) {
+	newData := make([]interface{}, n)
+	copy(newData, arr.data)
+	//for i := 0; i < arr.size; i++ {
+	//	newData[i] = arr.data[i]
+	//}
+	arr.data = newData
+	//fmt.Println("arr.data: ", arr.data)
 }
