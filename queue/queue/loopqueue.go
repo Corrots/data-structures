@@ -1,6 +1,10 @@
 package queue
 
-import "log"
+import (
+	"fmt"
+	"log"
+	"strings"
+)
 
 type LoopQueue struct {
 	data  []interface{}
@@ -11,10 +15,7 @@ type LoopQueue struct {
 
 func NewLoopQueue(cap int) Queue {
 	return &LoopQueue{
-		data:  make([]interface{}, cap+1),
-		front: 0,
-		tail:  0,
-		size:  0,
+		data: make([]interface{}, cap+1),
 	}
 }
 
@@ -75,4 +76,18 @@ func (q *LoopQueue) IsEmpty() bool {
 
 func (q *LoopQueue) Cap() int {
 	return len(q.data) - 1
+}
+
+func (q *LoopQueue) String() string {
+	var res strings.Builder
+	res.WriteString(fmt.Sprintf("Queue: size: %d, capacity: %d\n", q.size, q.Cap()))
+	res.WriteString("front [")
+	for i := q.front; i != q.tail; i = (i + 1) % len(q.data) {
+		res.WriteString(fmt.Sprintf("%v", q.data[i]))
+		if (i+1)%len(q.data) != q.tail {
+			res.WriteString(", ")
+		}
+	}
+	res.WriteString("] tail")
+	return res.String()
 }

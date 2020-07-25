@@ -7,13 +7,13 @@ import (
 )
 
 func main() {
-	queue := queue.NewArrayQueue()
+	q := queue.NewArrayQueue()
 	for i := 0; i < 10; i++ {
-		queue.Enqueue(i)
-		fmt.Println(queue)
+		q.Enqueue(i)
+		fmt.Println(q)
 		if i%3 == 2 {
-			queue.Dequeue()
-			fmt.Println(queue)
+			q.Dequeue()
+			fmt.Println(q)
 		}
 	}
 }
