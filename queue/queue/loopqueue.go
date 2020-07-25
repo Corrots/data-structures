@@ -26,7 +26,6 @@ func InitLoopQueue() Queue {
 func (q *LoopQueue) resize(newCap int) {
 	newData := make([]interface{}, newCap+1)
 	for i := 0; i < q.size; i++ {
-		// 新数组中索引为i的元素 = 原数组中 front+i位置的元素
 		newData[i] = q.data[(q.front+i)%len(q.data)]
 	}
 	q.data = newData
@@ -34,25 +33,27 @@ func (q *LoopQueue) resize(newCap int) {
 	q.tail = q.size
 }
 
+// 入队
 func (q *LoopQueue) Enqueue(e interface{}) {
-	// 判断队列是否已满
-	if (q.tail+1)%len(q.data) == q.front {
+	if q.tail+1 == q.front {
+		// 队列已满，进行扩容
 		q.resize(q.Cap() * 2)
 	}
 	q.data[q.tail] = e
 	q.tail = (q.tail + 1) % len(q.data)
+	// 维护size
 	q.size++
 }
 
+// 出队
 func (q *LoopQueue) Dequeue() interface{} {
 	if q.IsEmpty() {
 		log.Fatal("Dequeue failed, queue is empty")
 	}
 	ret := q.data[q.front]
-	q.data[q.front] = nil
 	q.front = (q.front + 1) % len(q.data)
 	q.size--
-	// resize
+	//q.data[q.front] = nil
 	if q.size == q.Cap()/4 && q.Cap()/2 != 0 {
 		q.resize(q.Cap() / 2)
 	}
