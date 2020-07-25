@@ -1,4 +1,4 @@
-package stack
+package arraystack
 
 type Stack interface {
 	Push(interface{})
@@ -7,4 +7,3 @@ type Stack interface {
 	Len() int
 	IsEmpty() bool
 }
-
