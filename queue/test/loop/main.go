@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"github.com/corrots/data-structures/queue/queue"
+	"github.com/corrots/data-structures/queue/queue2"
 )
 
 func main() {
-	q := queue.InitLoopQueue()
+	q := queue2.InitLoopQueue()
 	for i := 0; i < 10; i++ {
 		q.Enqueue(i)
 		fmt.Println(q)
