@@ -1,4 +1,4 @@
-package queue
+package queue1
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// 不浪费一个空间的循环队列
 type LoopQueue struct {
 	data  []interface{}
 	front int
@@ -15,7 +16,7 @@ type LoopQueue struct {
 
 func NewLoopQueue(cap int) Queue {
 	return &LoopQueue{
-		data: make([]interface{}, cap+1),
+		data: make([]interface{}, cap),
 	}
 }
 
@@ -24,7 +25,7 @@ func InitLoopQueue() Queue {
 }
 
 func (q *LoopQueue) resize(newCap int) {
-	newData := make([]interface{}, newCap+1)
+	newData := make([]interface{}, newCap)
 	for i := 0; i < q.size; i++ {
 		newData[i] = q.data[(q.front+i)%len(q.data)]
 	}
@@ -35,7 +36,7 @@ func (q *LoopQueue) resize(newCap int) {
 
 // 入队
 func (q *LoopQueue) Enqueue(e interface{}) {
-	if (q.tail+1)%len(q.data) == q.front {
+	if q.size == q.Cap() {
 		q.resize(q.Cap() * 2)
 	}
 	q.data[q.tail] = e
@@ -70,20 +71,20 @@ func (q *LoopQueue) Len() int {
 }
 
 func (q *LoopQueue) IsEmpty() bool {
-	return q.front == q.tail
+	return q.size == 0
 }
 
 func (q *LoopQueue) Cap() int {
-	return len(q.data) - 1
+	return len(q.data)
 }
 
 func (q *LoopQueue) String() string {
 	var res strings.Builder
 	res.WriteString(fmt.Sprintf("Queue: size: %d, capacity: %d\n", q.size, q.Cap()))
 	res.WriteString("front [")
-	for i := q.front; i != q.tail; i = (i + 1) % len(q.data) {
-		res.WriteString(fmt.Sprintf("%v", q.data[i]))
-		if (i+1)%len(q.data) != q.tail {
+	for i := 0; i < q.size; i++ {
+		res.WriteString(fmt.Sprintf("%v", q.data[(q.front+i)%len(q.data)]))
+		if i != q.size-1 {
 			res.WriteString(", ")
 		}
 	}

@@ -1,4 +1,4 @@
-package queue
+package queue2
 
 import (
 	"fmt"
@@ -6,11 +6,12 @@ import (
 	"strings"
 )
 
+// 不使用size的循环队列
 type LoopQueue struct {
 	data  []interface{}
 	front int
 	tail  int
-	size  int
+	//size  int
 }
 
 func NewLoopQueue(cap int) Queue {
@@ -25,12 +26,13 @@ func InitLoopQueue() Queue {
 
 func (q *LoopQueue) resize(newCap int) {
 	newData := make([]interface{}, newCap+1)
-	for i := 0; i < q.size; i++ {
+	size := q.Len()
+	for i := 0; i < size; i++ {
 		newData[i] = q.data[(q.front+i)%len(q.data)]
 	}
 	q.data = newData
 	q.front = 0
-	q.tail = q.size
+	q.tail = size
 }
 
 // 入队
@@ -40,7 +42,7 @@ func (q *LoopQueue) Enqueue(e interface{}) {
 	}
 	q.data[q.tail] = e
 	q.tail = (q.tail + 1) % len(q.data)
-	q.size++
+	//q.size++
 }
 
 // 出队
@@ -51,8 +53,8 @@ func (q *LoopQueue) Dequeue() interface{} {
 	res := q.data[q.front]
 	q.data[q.front] = nil
 	q.front = (q.front + 1) % len(q.data)
-	q.size--
-	if q.size <= q.Cap()/4 && q.Cap()/2 != 0 {
+	//q.size--
+	if q.Len() == q.Cap()/4 && q.Cap()/2 != 0 {
 		q.resize(q.Cap() / 2)
 	}
 	return res
@@ -66,7 +68,10 @@ func (q *LoopQueue) GetFront() interface{} {
 }
 
 func (q *LoopQueue) Len() int {
-	return q.size
+	if q.tail < q.front {
+		return q.tail - q.front + len(q.data)
+	}
+	return q.tail - q.front
 }
 
 func (q *LoopQueue) IsEmpty() bool {
@@ -79,11 +84,11 @@ func (q *LoopQueue) Cap() int {
 
 func (q *LoopQueue) String() string {
 	var res strings.Builder
-	res.WriteString(fmt.Sprintf("Queue: size: %d, capacity: %d\n", q.size, q.Cap()))
+	res.WriteString(fmt.Sprintf("Queue: size: %d, capacity: %d\n", q.Len(), q.Cap()))
 	res.WriteString("front [")
-	for i := q.front; i != q.tail; i = (i + 1) % len(q.data) {
-		res.WriteString(fmt.Sprintf("%v", q.data[i]))
-		if (i+1)%len(q.data) != q.tail {
+	for i := 0; i < q.Len(); i++ {
+		res.WriteString(fmt.Sprintf("%v", q.data[(q.front+i)%len(q.data)]))
+		if i != q.Len()-1 {
 			res.WriteString(", ")
 		}
 	}
