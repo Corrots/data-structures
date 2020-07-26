@@ -35,13 +35,11 @@ func (q *LoopQueue) resize(newCap int) {
 
 // 入队
 func (q *LoopQueue) Enqueue(e interface{}) {
-	if q.tail+1 == q.front {
-		// 队列已满，进行扩容
+	if (q.tail+1)%len(q.data) == q.front {
 		q.resize(q.Cap() * 2)
 	}
 	q.data[q.tail] = e
 	q.tail = (q.tail + 1) % len(q.data)
-	// 维护size
 	q.size++
 }
 
@@ -50,14 +48,14 @@ func (q *LoopQueue) Dequeue() interface{} {
 	if q.IsEmpty() {
 		log.Fatal("Dequeue failed, queue is empty")
 	}
-	ret := q.data[q.front]
+	res := q.data[q.front]
+	q.data[q.front] = nil
 	q.front = (q.front + 1) % len(q.data)
 	q.size--
-	//q.data[q.front] = nil
-	if q.size == q.Cap()/4 && q.Cap()/2 != 0 {
+	if q.size <= q.Cap()/4 && q.Cap()/2 != 0 {
 		q.resize(q.Cap() / 2)
 	}
-	return ret
+	return res
 }
 
 func (q *LoopQueue) GetFront() interface{} {
