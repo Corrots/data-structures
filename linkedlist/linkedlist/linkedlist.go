@@ -1,6 +1,10 @@
 package linkedlist
 
-import "log"
+import (
+	"fmt"
+	"log"
+	"strings"
+)
 
 type Node struct {
 	e    interface{}
@@ -33,6 +37,7 @@ func (l *LinkedList) Add(index int, e interface{}) {
 	if index < 0 || index > l.size {
 		log.Fatal("Add failed, illegal index")
 	}
+	// 从链表的虚拟头节点开始遍历
 	prev := l.dummyHead
 	for i := 0; i < index; i++ {
 		// 找到要插入位置的前一个节点
@@ -44,11 +49,65 @@ func (l *LinkedList) Add(index int, e interface{}) {
 }
 
 // 在链表头添加新的元素e
-func (l *LinkedList) AddFront(e interface{}) {
+func (l *LinkedList) AddFirst(e interface{}) {
 	l.Add(0, e)
 }
 
 // 在链表末尾添加新元素e
 func (l *LinkedList) AddLast(e interface{}) {
 	l.Add(l.size, e)
+}
+
+// 获取链表中index位置的元素
+func (l *LinkedList) Get(index int) interface{} {
+	if index < 0 || index >= l.size {
+		log.Fatal("Get failed, illegal index")
+	}
+	// 从链表的第一个真实元素开始遍历
+	cur := l.dummyHead.next
+	for i := 0; i < index; i++ {
+		cur = cur.next
+	}
+	return cur.e
+}
+
+func (l *LinkedList) GetFirst() interface{} {
+	return l.Get(0)
+}
+
+func (l *LinkedList) GetLast() interface{} {
+	return l.Get(l.size - 1)
+}
+
+func (l *LinkedList) Set(index int, e interface{}) {
+	if index < 0 || index >= l.size {
+		log.Fatal("Set failed, illegal index")
+	}
+	cur := l.dummyHead.next
+	for i := 0; i < index; i++ {
+		cur = cur.next
+	}
+	cur.e = e
+}
+
+func (l *LinkedList) Contains(e interface{}) bool {
+	cur := l.dummyHead.next
+	for cur != nil {
+		if cur.e == e {
+			return true
+		}
+		cur = cur.next
+	}
+	return false
+}
+
+func (l *LinkedList) String() string {
+	var res strings.Builder
+	cur := l.dummyHead.next
+	for cur != nil {
+		res.WriteString(fmt.Sprintf("%v->", cur.e))
+		cur = cur.next
+	}
+	res.WriteString("nil")
+	return res.String()
 }
