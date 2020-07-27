@@ -101,6 +101,20 @@ func (l *LinkedList) Contains(e interface{}) bool {
 	return false
 }
 
+func (l *LinkedList) Delete(index int) interface{} {
+	if index < 0 || index >= l.size {
+		log.Fatal("Delete failed, illegal index")
+	}
+	prev := l.dummyHead
+	for i := 0; i < index; i++ {
+		prev = prev.next
+	}
+	delNode := prev.next
+	prev.next = delNode.next
+	delNode.next = nil
+	return delNode.e
+}
+
 func (l *LinkedList) String() string {
 	var res strings.Builder
 	cur := l.dummyHead.next
