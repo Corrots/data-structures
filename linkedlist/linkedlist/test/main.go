@@ -14,4 +14,7 @@ func main() {
 	}
 	ll.Add(2, 666)
 	fmt.Println(ll)
+
+	fmt.Println("del: ", ll.Delete(2))
+	fmt.Println(ll)
 }
