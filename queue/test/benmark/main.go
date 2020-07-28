@@ -5,6 +5,8 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/corrots/data-structures/queue/basic"
+
 	"github.com/corrots/data-structures/queue/queue"
 )
 
@@ -17,7 +19,7 @@ func main() {
 }
 
 // 测试使用q运行opCount个enqueue和dequeue操作所需的时间，单位：s
-func TestQueue(q queue.Queue, opCount int) int64 {
+func TestQueue(q basic.Queue, opCount int) int64 {
 	start := time.Now()
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < opCount; i++ {

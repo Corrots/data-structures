@@ -1,4 +1,4 @@
-package queue1
+package basic
 
 type Queue interface {
 	Enqueue(interface{})

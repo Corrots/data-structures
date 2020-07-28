@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"strings"
+
+	"github.com/corrots/data-structures/queue/basic"
 )
 
 // 不浪费一个空间的循环队列
@@ -14,13 +16,13 @@ type LoopQueue struct {
 	size  int
 }
 
-func NewLoopQueue(cap int) Queue {
+func NewLoopQueue(cap int) basic.Queue {
 	return &LoopQueue{
 		data: make([]interface{}, cap),
 	}
 }
 
-func InitLoopQueue() Queue {
+func InitLoopQueue() basic.Queue {
 	return NewLoopQueue(10)
 }
 

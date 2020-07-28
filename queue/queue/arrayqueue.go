@@ -3,13 +3,15 @@ package queue
 import (
 	"fmt"
 	"strings"
+
+	"github.com/corrots/data-structures/queue/basic"
 )
 
 type ArrayQueue struct {
 	array *Array
 }
 
-func NewArrayQueue() Queue {
+func NewArrayQueue() basic.Queue {
 	return &ArrayQueue{array: NewArray(10)}
 }
 
