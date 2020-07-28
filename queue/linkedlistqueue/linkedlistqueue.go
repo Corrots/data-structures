@@ -1,6 +1,10 @@
 package linkedlistqueue
 
-import "log"
+import (
+	"fmt"
+	"log"
+	"strings"
+)
 
 type Node struct {
 	e    interface{}
@@ -21,17 +25,21 @@ func NewLinkedListQueue() *LinkedListQueue {
 	return &LinkedListQueue{}
 }
 
+// 入队
 func (l *LinkedListQueue) Enqueue(e interface{}) {
+	// tail为nil，则表示head也为nil
 	if l.tail == nil {
 		l.tail = newNode(e, nil)
 		l.head = l.tail
 	} else {
 		l.tail.next = newNode(e, nil)
+		// @TODO
 		l.tail = l.tail.next
 	}
 	l.size++
 }
 
+// 出队
 func (l *LinkedListQueue) Dequeue() interface{} {
 	if l.IsEmpty() {
 		log.Fatal("queue is empty")
@@ -39,7 +47,9 @@ func (l *LinkedListQueue) Dequeue() interface{} {
 	retNode := l.head
 	l.head = l.head.next
 	retNode.next = nil
+	// 链表出队后变为空
 	if l.head == nil {
+		// 出队前的tail指向被出队的元素
 		l.tail = nil
 	}
 	l.size--
@@ -62,5 +72,13 @@ func (l *LinkedListQueue) IsEmpty() bool {
 }
 
 func (l *LinkedListQueue) String() string {
-
+	var res strings.Builder
+	res.WriteString("Queue: front ")
+	cur := l.head
+	for cur != nil {
+		res.WriteString(fmt.Sprintf("%v->", cur.e))
+		cur = cur.next
+	}
+	res.WriteString("nil tail")
+	return res.String()
 }

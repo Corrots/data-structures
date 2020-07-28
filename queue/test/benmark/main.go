@@ -5,6 +5,8 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/corrots/data-structures/queue/linkedlistqueue"
+
 	"github.com/corrots/data-structures/queue/basic"
 
 	"github.com/corrots/data-structures/queue/queue"
@@ -16,6 +18,8 @@ func main() {
 	fmt.Printf("array queue spent: %d ms\n", TestQueue(aq, opCount))
 	lq := queue.InitLoopQueue()
 	fmt.Printf("queue1 queue spent: %d ms\n", TestQueue(lq, opCount))
+	llq := linkedlistqueue.NewLinkedListQueue()
+	fmt.Printf("linked list queue spent: %d ms\n", TestQueue(llq, opCount))
 }
 
 // 测试使用q运行opCount个enqueue和dequeue操作所需的时间，单位：s
