@@ -15,6 +15,10 @@ func main() {
 	ll.Add(2, 666)
 	fmt.Println(ll)
 
-	fmt.Println("del: ", ll.Delete(2))
+	fmt.Println("del: ", ll.Remove(2))
+	fmt.Println(ll)
+	ll.RemoveFirst()
+	fmt.Println(ll)
+	ll.RemoveLast()
 	fmt.Println(ll)
 }

@@ -1,4 +1,4 @@
-package linkedlist
+package linkedliststack
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func newNode(e interface{}, next *Node) *Node {
 	return &Node{e: e, next: next}
 }
 
-func New() *LinkedList {
+func NewLinkedList() *LinkedList {
 	return &LinkedList{dummyHead: newNode(nil, nil), size: 0}
 }
 

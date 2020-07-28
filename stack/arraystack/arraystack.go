@@ -3,13 +3,15 @@ package arraystack
 import (
 	"fmt"
 	"strings"
+
+	"github.com/corrots/data-structures/stack"
 )
 
 type ArrayStack struct {
 	array *Array
 }
 
-func NewStack(capacity int) Stack {
+func NewStack(capacity int) stack.Stack {
 	return &ArrayStack{
 		array: NewArray(capacity),
 	}

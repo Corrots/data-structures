@@ -1,4 +1,4 @@
-package arraystack
+package stack
 
 type Stack interface {
 	Push(interface{})
