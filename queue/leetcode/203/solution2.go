@@ -1,11 +1,6 @@
-package solution1
+package solution
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func removeElements(head *ListNode, val int) *ListNode {
+func RemoveElements1(head *ListNode, val int) *ListNode {
 	dummyHead := &ListNode{}
 	dummyHead.Next = head
 	prev := dummyHead
