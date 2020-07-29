@@ -1,6 +1,6 @@
 package solution
 
-func RemoveElements1(head *ListNode, val int) *ListNode {
+func RemoveElements2(head *ListNode, val int) *ListNode {
 	dummyHead := &ListNode{}
 	dummyHead.Next = head
 	prev := dummyHead
