@@ -1,11 +1,6 @@
 package solution
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func removeElements(head *ListNode, val int) *ListNode {
+func RemoveElements(head *ListNode, val int) *ListNode {
 	for head != nil && head.Val == val {
 		delNode := head
 		head = head.Next
