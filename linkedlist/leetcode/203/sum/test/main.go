@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/corrots/data-structures/queue/leetcode/203/sum"
+	"github.com/corrots/data-structures/linkedlist/leetcode/203/sum"
 )
 
 func main() {
