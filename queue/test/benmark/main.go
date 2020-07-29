@@ -13,9 +13,9 @@ import (
 )
 
 func main() {
-	opCount := 100000
-	aq := queue.NewArrayQueue()
-	fmt.Printf("array queue spent: %d ms\n", TestQueue(aq, opCount))
+	opCount := 1000000
+	//aq := queue.NewArrayQueue()
+	//fmt.Printf("array queue spent: %d ms\n", TestQueue(aq, opCount))
 	lq := queue.InitLoopQueue()
 	fmt.Printf("queue1 queue spent: %d ms\n", TestQueue(lq, opCount))
 	llq := linkedlistqueue.NewLinkedListQueue()
