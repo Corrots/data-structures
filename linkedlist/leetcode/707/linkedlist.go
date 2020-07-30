@@ -5,23 +5,23 @@ import (
 	"strings"
 )
 
-type Node struct {
+type listNode struct {
 	e    int
-	next *Node
+	next *listNode
 }
 
-func newNode(e int, next *Node) *Node {
-	return &Node{e: e, next: next}
+func newNode(e int, next *listNode) *listNode {
+	return &listNode{e: e, next: next}
 }
 
 type MyLinkedList struct {
-	dummyHead *Node
+	dummyHead *listNode
 	size      int
 }
 
 /** Initialize your data structure here. */
 func Constructor() *MyLinkedList {
-	return &MyLinkedList{dummyHead: &Node{}}
+	return &MyLinkedList{dummyHead: &listNode{}}
 }
 
 /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
