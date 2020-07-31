@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+//
 type Node struct {
 	val  interface{}
 	next *Node
