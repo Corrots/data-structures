@@ -13,7 +13,7 @@ func MergeSort(nums []int) {
 }
 
 func mergeSort(nums []int, l, r int) {
-	if l > r {
+	if l >= r {
 		return
 	}
 	mid := (l + r) / 2
