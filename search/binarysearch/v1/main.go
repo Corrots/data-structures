@@ -8,8 +8,8 @@ func main() {
 }
 
 func BinarySearch(nums []int, target int) int {
-	n := len(nums)
-	l, r := 0, n-1
+	// 循环不变量：nums[l:r]范围内寻找target
+	l, r := 0, len(nums)-1
 	for l <= r {
 		mid := (l + r) / 2
 		if nums[mid] == target {
