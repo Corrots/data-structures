@@ -7,7 +7,10 @@ import (
 )
 
 func main() {
-	opCount := 100000
+	//nums := []int{3, 2, 5, 1, 4, 0}
+	//MergeSort(nums)
+	//fmt.Println(nums)
+	opCount := 1000000
 	t1 := helper.TestSort(opCount, MergeSort)
 	fmt.Printf("MergeSort spend %d ms", t1)
 }
@@ -16,15 +19,20 @@ func MergeSort(nums []int) {
 	mergeSort(nums, 0, len(nums)-1)
 }
 
-// 对nums[l:r]范围内的元素进行归并排序
 func mergeSort(nums []int, l, r int) {
-	if l >= r {
+	//if l >= r {
+	//	return
+	//}
+	if r-l <= 15 {
+		helper.InsertionSort(nums, l, r)
 		return
 	}
-	mid := (r-l)/2 + l
+	mid := (l + r) / 2
 	mergeSort(nums, l, mid)
 	mergeSort(nums, mid+1, r)
-	merge(nums, l, mid, r)
+	if nums[mid] > nums[mid+1] {
+		merge(nums, l, mid, r)
+	}
 }
 
 func merge(nums []int, l, mid, r int) {

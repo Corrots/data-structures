@@ -1,11 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/corrots/data-structures/sort/helper"
+)
 
 func main() {
 	nums := []int{3, 2, 5, 1, 4, 0}
 	InsertionSort(nums)
 	fmt.Println(nums)
+
+	opCount := 100000
+	t2 := helper.TestSort(opCount, InsertionSort)
+	fmt.Printf("InsertionSort spend %d ms", t2)
 }
 
 // 从后向前实现插入排序
