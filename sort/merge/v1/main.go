@@ -27,11 +27,13 @@ func mergeSort(nums []int, l, r int) {
 	merge(nums, l, mid, r)
 }
 
+// 将nums[l:mid]和nums[mid+1:r]的数组进行归并排序
 func merge(nums []int, l, mid, r int) {
-	aux := make([]int, (r-l)+1)
+	aux := make([]int, r-l+1)
 	for i := l; i <= r; i++ {
 		aux[i-l] = nums[i]
 	}
+	//
 	i, j := l, mid+1
 	for k := l; k <= r; k++ {
 		if i > mid {

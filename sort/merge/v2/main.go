@@ -20,13 +20,13 @@ func MergeSort(nums []int) {
 }
 
 func mergeSort(nums []int, l, r int) {
-	//if l >= r {
-	//	return
-	//}
-	if r-l <= 15 {
-		helper.InsertionSort(nums, l, r)
+	if l >= r {
 		return
 	}
+	//if r-l <= 15 {
+	//	helper.InsertionSort(nums, l, r)
+	//	return
+	//}
 	mid := (l + r) / 2
 	mergeSort(nums, l, mid)
 	mergeSort(nums, mid+1, r)
