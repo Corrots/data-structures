@@ -1,28 +1,12 @@
-package main
+package v2
 
-import (
-	"fmt"
-
-	"github.com/corrots/data-structures/sort/helper"
-)
-
-func main() {
-	//nums := []int{3, 2, 5, 1, 4, 0}
-	//MergeSort(nums)
-	//fmt.Println(nums)
-	opCount := 50
-	t1 := helper.TestSort(opCount, MergeSort)
-	fmt.Printf("MergeSort spend %d ms", t1)
-}
+import "github.com/corrots/data-structures/sort/helper"
 
 func MergeSort(nums []int) {
 	mergeSort(nums, 0, len(nums)-1)
 }
 
 func mergeSort(nums []int, l, r int) {
-	//if l >= r {
-	//	return
-	//}
 	if r-l <= 15 {
 		helper.InsertionSort(nums, l, r)
 		return
@@ -38,9 +22,6 @@ func mergeSort(nums []int, l, r int) {
 func merge(nums []int, l, mid, r int) {
 	temp := make([]int, (r-l)+1)
 	copy(temp, nums[l:r+1])
-	//for i := l; i <= r; i++ {
-	//	temp[i-l] = nums[i]
-	//}
 	i, j := l, mid+1
 	for k := l; k <= r; k++ {
 		if i > mid {
