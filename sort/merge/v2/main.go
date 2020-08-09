@@ -10,7 +10,7 @@ func main() {
 	//nums := []int{3, 2, 5, 1, 4, 0}
 	//MergeSort(nums)
 	//fmt.Println(nums)
-	opCount := 1000000
+	opCount := 50
 	t1 := helper.TestSort(opCount, MergeSort)
 	fmt.Printf("MergeSort spend %d ms", t1)
 }
@@ -20,13 +20,13 @@ func MergeSort(nums []int) {
 }
 
 func mergeSort(nums []int, l, r int) {
-	if l >= r {
-		return
-	}
-	//if r-l <= 15 {
-	//	helper.InsertionSort(nums, l, r)
+	//if l >= r {
 	//	return
 	//}
+	if r-l <= 15 {
+		helper.InsertionSort(nums, l, r)
+		return
+	}
 	mid := (l + r) / 2
 	mergeSort(nums, l, mid)
 	mergeSort(nums, mid+1, r)
@@ -36,23 +36,24 @@ func mergeSort(nums []int, l, r int) {
 }
 
 func merge(nums []int, l, mid, r int) {
-	aux := make([]int, (r-l)+1)
-	for i := l; i <= r; i++ {
-		aux[i-l] = nums[i]
-	}
+	temp := make([]int, (r-l)+1)
+	copy(temp, nums[l:r+1])
+	//for i := l; i <= r; i++ {
+	//	temp[i-l] = nums[i]
+	//}
 	i, j := l, mid+1
 	for k := l; k <= r; k++ {
 		if i > mid {
-			nums[k] = aux[j-l]
+			nums[k] = temp[j-l]
 			j++
 		} else if j > r {
-			nums[k] = aux[i-l]
+			nums[k] = temp[i-l]
 			i++
-		} else if aux[i-l] < aux[j-l] {
-			nums[k] = aux[i-l]
+		} else if temp[i-l] < temp[j-l] {
+			nums[k] = temp[i-l]
 			i++
 		} else {
-			nums[k] = aux[j-l]
+			nums[k] = temp[j-l]
 			j++
 		}
 	}
