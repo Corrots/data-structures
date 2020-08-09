@@ -33,7 +33,6 @@ func merge(nums []int, l, mid, r int) {
 	for i := l; i <= r; i++ {
 		aux[i-l] = nums[i]
 	}
-	//
 	i, j := l, mid+1
 	for k := l; k <= r; k++ {
 		if i > mid {
