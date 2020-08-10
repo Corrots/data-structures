@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	count := 1000000
+	count := 5000000
 	nums1 := helper.GenerateRandArray(count, 0, count*10)
 	nums2 := make([]int, count)
 	copy(nums2, nums1)
