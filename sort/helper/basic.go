@@ -26,17 +26,22 @@ func IsSorted(nums []int) bool {
 	return true
 }
 
-func TestSort(opCount int, fn func([]int)) int64 {
-	var nums []int
+func TestSort(nums []int, fn func([]int)) int64 {
 	start := time.Now()
 	rand.Seed(time.Now().UnixNano())
-	for i := 0; i < opCount; i++ {
-		nums = append(nums, rand.Int()%opCount)
-	}
 	fn(nums)
 	//fmt.Println(nums)
 	if !IsSorted(nums) {
 		log.Fatal("sorted failed")
 	}
 	return time.Since(start).Milliseconds()
+}
+
+func GenerateRandArray(count, rangeLeft, rangeRight int) []int {
+	var nums []int
+	rand.Seed(time.Now().UnixNano())
+	for i := 0; i < count; i++ {
+		nums = append(nums, rand.Int()%(rangeRight-rangeLeft+1)+rangeLeft)
+	}
+	return nums
 }

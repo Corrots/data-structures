@@ -1,16 +1,4 @@
-package main
-
-import (
-	"fmt"
-
-	"github.com/corrots/data-structures/sort/helper"
-)
-
-func main() {
-	opCount := 100000
-	t1 := helper.TestSort(opCount, MergeSort)
-	fmt.Printf("MergeSort spend %d ms", t1)
-}
+package v1
 
 func MergeSort(nums []int) {
 	mergeSort(nums, 0, len(nums)-1)

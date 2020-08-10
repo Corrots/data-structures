@@ -1,17 +1,15 @@
-package v2
+package v4
 
-import "github.com/corrots/data-structures/sort/helper"
-
+// 归并排序的自底向上实现
 func MergeSort(nums []int) {
 	mergeSort(nums, 0, len(nums)-1)
 }
 
 func mergeSort(nums []int, l, r int) {
-	if r-l <= 15 {
-		helper.InsertionSort(nums, l, r)
+	if l >= r {
 		return
 	}
-	mid := (l + r) / 2
+	mid := (r-l)/2 + l
 	mergeSort(nums, l, mid)
 	mergeSort(nums, mid+1, r)
 	if nums[mid] > nums[mid+1] {
@@ -20,24 +18,21 @@ func mergeSort(nums []int, l, r int) {
 }
 
 func merge(nums []int, l, mid, r int) {
-	temp := make([]int, (r-l)+1)
-	//for i := l; i <= r; i++ {
-	//	temp[i-l] = nums[i]
-	//}
-	copy(temp, nums[l:r+1])
+	tmp := make([]int, r-l+1)
+	copy(tmp, nums[l:r+1])
 	i, j := l, mid+1
 	for k := l; k <= r; k++ {
 		if i > mid {
-			nums[k] = temp[j-l]
+			nums[k] = tmp[j-l]
 			j++
 		} else if j > r {
-			nums[k] = temp[i-l]
+			nums[k] = tmp[i-l]
 			i++
-		} else if temp[i-l] < temp[j-l] {
-			nums[k] = temp[i-l]
+		} else if tmp[i-l] < tmp[j-l] {
+			nums[k] = tmp[i-l]
 			i++
 		} else {
-			nums[k] = temp[j-l]
+			nums[k] = tmp[j-l]
 			j++
 		}
 	}
