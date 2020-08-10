@@ -38,7 +38,10 @@ func merge(nums []int, l, mid, r int) int {
 		if i > mid {
 			nums[k] = tmp[j-l]
 			j++
-		} else if j > r || tmp[i-l] <= tmp[j-l] {
+		} else if j > r {
+			nums[k] = tmp[i-l]
+			i++
+		} else if tmp[i-l] <= tmp[j-l] {
 			nums[k] = tmp[i-l]
 			i++
 		} else {
