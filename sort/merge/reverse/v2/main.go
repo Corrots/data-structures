@@ -5,13 +5,12 @@ import "fmt"
 func main() {
 	nums := []int{7, 5, 6, 4}
 	fmt.Println(reversePairs(nums))
-	fmt.Println("nums: ", nums)
 	nums1 := []int{1, 3, 2, 3, 1}
 	fmt.Println(reversePairs(nums1))
-	fmt.Println("nums1: ", nums1)
 }
 
 // https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/
+// 归并排序思想解法
 func reversePairs(nums []int) int {
 	return mergeSort(nums, 0, len(nums)-1)
 }
@@ -39,10 +38,7 @@ func merge(nums []int, l, mid, r int) int {
 		if i > mid {
 			nums[k] = tmp[j-l]
 			j++
-		} else if j > r {
-			nums[k] = tmp[i-l]
-			i++
-		} else if tmp[i-l] <= tmp[j-l] {
+		} else if j > r || tmp[i-l] <= tmp[j-l] {
 			nums[k] = tmp[i-l]
 			i++
 		} else {
