@@ -15,13 +15,13 @@ func quickSort(nums []int, l, r int) {
 
 func partition(nums []int, l, r int) int {
 	v := nums[l]
-	p := l
+	j := l
 	for i := l + 1; i <= r; i++ {
 		if nums[i] < v {
-			nums[p+1], nums[i] = nums[i], nums[p+1]
-			p++
+			nums[i], nums[j+1] = nums[j+1], nums[i]
+			j++
 		}
 	}
-	nums[l], nums[p] = nums[p], nums[l]
-	return p
+	nums[l], nums[j] = nums[j], nums[l]
+	return j
 }
