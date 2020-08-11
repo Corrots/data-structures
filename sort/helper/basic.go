@@ -45,3 +45,11 @@ func GenerateRandArray(count, rangeLeft, rangeRight int) []int {
 	}
 	return nums
 }
+
+func GenerateOrderedArray(count int) []int {
+	var nums []int
+	for i := 0; i < count; i++ {
+		nums = append(nums, i)
+	}
+	return nums
+}
