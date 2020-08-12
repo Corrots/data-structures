@@ -9,18 +9,18 @@ import (
 
 func QuickSort(nums []int) {
 	rand.Seed(time.Now().UnixNano())
-	quickSort(nums, 0, len(nums)-1)
+	quickSort2Ways(nums, 0, len(nums)-1)
 }
 
 // 双路快排
-func quickSort(nums []int, l, r int) {
+func quickSort2Ways(nums []int, l, r int) {
 	if r-l <= 8 {
 		helper.InsertionSort(nums, l, r)
 		return
 	}
 	p := partition(nums, l, r)
-	quickSort(nums, l, p-1)
-	quickSort(nums, p+1, r)
+	quickSort2Ways(nums, l, p-1)
+	quickSort2Ways(nums, p+1, r)
 }
 
 func randomPivot(nums []int, l, r int) {
@@ -40,7 +40,7 @@ func partition(nums []int, l, r int) int {
 		for j >= l+1 && nums[j] > v {
 			j--
 		}
-		if i > j {
+		if i >= j {
 			break
 		}
 		nums[i], nums[j] = nums[j], nums[i]
