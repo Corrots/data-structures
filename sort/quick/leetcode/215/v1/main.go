@@ -14,6 +14,7 @@ func main() {
 }
 
 // https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
+// 递归实现
 func findKthLargest(nums []int, k int) int {
 	rand.Seed(time.Now().UnixNano())
 	return quickSort(nums, 0, len(nums)-1, len(nums)-k)
