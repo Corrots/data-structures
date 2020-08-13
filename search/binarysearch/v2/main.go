@@ -14,11 +14,10 @@ func BinarySearch(nums []int, target int) int {
 	// 循环不变量：nums[l:r)范围内寻找target
 	l, r := 0, len(nums)
 	for l < r {
-		mid := (l + r - 1) / 2
+		mid := (r-l)/2 + l
 		if nums[mid] == target {
 			return mid
-		}
-		if nums[mid] < target {
+		} else if nums[mid] < target {
 			l = mid + 1
 		} else {
 			r = mid
