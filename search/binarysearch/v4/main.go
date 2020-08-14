@@ -44,12 +44,14 @@ func Ceil(nums []int, target int) int {
 
 // >= target的最小索引值
 func LowerCeil(nums []int, target int) int {
-	u := Upper(nums, target)
-	res := u
-	for i := u; i >= 0 && i < len(nums); i-- {
-		if nums[i] == target {
-			res = i
+	l, r := 0, len(nums)
+	for l < r {
+		mid := (r-l)/2 + l
+		if nums[mid] < target {
+			l = mid + 1
+		} else {
+			r = mid
 		}
 	}
-	return res
+	return r
 }
