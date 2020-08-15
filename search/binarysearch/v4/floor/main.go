@@ -30,19 +30,11 @@ func Lower(nums []int, target int) int {
 
 //
 func LowerFloor(nums []int, target int) int {
-	l, r := -1, len(nums)-1
-	for l < r {
-		mid := (r-l+1)/2 + l
-		if nums[mid] < target {
-			l = mid
-		} else {
-			r = mid - 1
-		}
+	i := Lower(nums, target)
+	if i+1 < len(nums) && nums[i+1] == target {
+		return i + 1
 	}
-	if l+1 < len(nums) && nums[l+1] == target {
-		return l + 1
-	}
-	return l
+	return i
 }
 
 // nums := []int{1, 1, 3, 3, 5, 5}
