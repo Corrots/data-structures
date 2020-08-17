@@ -23,11 +23,11 @@ func shipWithinDays(weights []int, D int) int {
 	copy(w, weights)
 	sort.Ints(w)
 	max := w[len(w)-1]
-	l, r := 1, sum(weights)
+	l, r := max, sum(weights)
 	for l < r {
 		//fmt.Printf("l: %d, r: %d\n", l, r)
 		mid := (r-l)/2 + l
-		if days(weights, mid) <= D && mid >= max {
+		if days(weights, mid) <= D {
 			r = mid
 		} else {
 			l = mid + 1
@@ -38,16 +38,17 @@ func shipWithinDays(weights []int, D int) int {
 
 // 当载重量为k时，运送完所有货物所需的天数(D)
 func days(weights []int, k int) int {
-	sum, d := 0, 1
-	for i := 0; i < len(weights); i++ {
-		if sum+weights[i] <= k {
-			sum += weights[i]
+	var cur, res int
+	for _, v := range weights {
+		if cur+v <= k {
+			cur += v
 		} else {
-			d++
-			sum = weights[i]
+			res++
+			cur = v
 		}
 	}
-	return d
+	res++
+	return res
 }
 
 func sum(weights []int) int {
