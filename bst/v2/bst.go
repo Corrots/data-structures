@@ -1,4 +1,4 @@
-package bst
+package v1
 
 type BST struct {
 	root *Node
@@ -17,12 +17,7 @@ func (b *BST) IsEmpty() bool {
 	return b.size == 0
 }
 
+// 向二分搜索树中插入元素
 func (b *BST) Add(k int, v interface{}) {
-	if b.root == nil {
-		b.root = newNode(k, v)
-	} else {
-		if ok := b.root.add(k, v); ok {
-			b.size++
-		}
-	}
+	b.root = b.root.add(k, v)
 }

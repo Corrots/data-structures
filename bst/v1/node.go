@@ -1,4 +1,4 @@
-package bst
+package v1
 
 type Node struct {
 	key   int
