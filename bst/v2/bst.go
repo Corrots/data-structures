@@ -62,6 +62,22 @@ func (b *BST) PostOrder() {
 	b.root.postOrder()
 }
 
+func (b *BST) LevelOrder() {
+	var q []*Node
+	q = append(q, b.root)
+	for len(q) > 0 {
+		node := q[0]
+		q = q[1:]
+		fmt.Printf("%d ", node.key)
+		if node.left != nil {
+			q = append(q, node.left)
+		}
+		if node.right != nil {
+			q = append(q, node.right)
+		}
+	}
+}
+
 func (b *BST) String() string {
 	return b.root.String(0)
 }
