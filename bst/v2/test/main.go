@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	v2 "github.com/corrots/data-structures/bst/v2"
 )
 
@@ -19,4 +21,9 @@ func main() {
 	//fmt.Println(bst)
 	// 层序遍历
 	bst.LevelOrder()
+	fmt.Println()
+	fmt.Println(bst.Minimum())
+	fmt.Println(bst.Maximum())
+	fmt.Println(bst.RemoveMin())
+	fmt.Println(bst.RemoveMin())
 }
