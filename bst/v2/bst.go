@@ -104,8 +104,11 @@ func (b *BST) RemoveMin() int {
 	return e
 }
 
-func (b *BST) RemoveMax() {
-
+func (b *BST) RemoveMax() int {
+	e := b.Maximum()
+	b.root = b.root.removeMax()
+	b.size--
+	return e
 }
 
 func (b *BST) String() string {

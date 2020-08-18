@@ -100,6 +100,17 @@ func (n *Node) removeMin() *Node {
 	return n
 }
 
+// 删除以n为根节点的二分搜索树中的最小值
+func (n *Node) removeMax() *Node {
+	if n.right == nil {
+		nodeLeft := n.left
+		n.left = nil
+		return nodeLeft
+	}
+	n.right = n.right.removeMax()
+	return n
+}
+
 func (n *Node) String(depth int) string {
 	var res strings.Builder
 	if n == nil {

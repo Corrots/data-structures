@@ -26,4 +26,6 @@ func main() {
 	fmt.Println(bst.Maximum())
 	fmt.Println(bst.RemoveMin())
 	fmt.Println(bst.RemoveMin())
+	fmt.Println(bst.RemoveMax())
+	fmt.Println(bst.RemoveMax())
 }
