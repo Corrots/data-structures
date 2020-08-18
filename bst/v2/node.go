@@ -15,6 +15,14 @@ func newNode(k int) *Node {
 	return &Node{key: k}
 }
 
+func copyNode(n *Node) *Node {
+	return &Node{
+		key:   n.key,
+		left:  n.left,
+		right: n.right,
+	}
+}
+
 // 向以node为根的二分搜索树中添加元素e
 // 返回插入新节点后以node为根的二分搜索树
 func (n *Node) add(k int) *Node {
@@ -74,9 +82,9 @@ func (n *Node) postOrder() {
 }
 
 // 获取以n为根节点的二分搜索树中的最小值
-func (n *Node) minimum() int {
+func (n *Node) minimum() *Node {
 	if n.left == nil {
-		return n.key
+		return n
 	}
 	return n.left.minimum()
 }
@@ -109,6 +117,34 @@ func (n *Node) removeMax() *Node {
 	}
 	n.right = n.right.removeMax()
 	return n
+}
+
+func (n *Node) remove(k int) *Node {
+	if n == nil {
+		return nil
+	}
+	// 先搜索k对应的节点
+	if k < n.key {
+		n.left = n.left.remove(k)
+		return n
+	} else if k > n.key {
+		n.right = n.right.remove(k)
+		return n
+	} else { // k == n.key(找到要删除的节点了)
+		// n的左孩子=nil，直接返回右孩子作为n
+		if n.left == nil {
+			return n.right
+		}
+		// 右孩子=nil
+		if n.right == nil {
+			return n.left
+		}
+		// 左右孩子都!=nil
+		successor := copyNode(n.right.minimum())
+		successor.right = n.right.removeMin()
+		successor.left = n.left
+		return successor
+	}
 }
 
 func (n *Node) String(depth int) string {
