@@ -133,11 +133,15 @@ func (n *Node) remove(k int) *Node {
 	} else { // k == n.key(找到要删除的节点了)
 		// n的左孩子=nil，直接返回右孩子作为n
 		if n.left == nil {
-			return n.right
+			nodeRight := n.right
+			n.right = nil
+			return nodeRight
 		}
 		// 右孩子=nil
 		if n.right == nil {
-			return n.left
+			nodeLeft := n.left
+			n.left = nil
+			return nodeLeft
 		}
 		// 左右孩子都!=nil
 		successor := copyNode(n.right.minimum())
