@@ -59,11 +59,12 @@ func (b *BST) InOrder() {
 	b.root.inOrder()
 }
 
-// 二分搜索树的中序遍历
+// 二分搜索树的后序遍历
 func (b *BST) PostOrder() {
 	b.root.postOrder()
 }
 
+// 二分搜索树的层序遍历
 func (b *BST) LevelOrder() {
 	var q []*Node
 	q = append(q, b.root)
@@ -81,7 +82,7 @@ func (b *BST) LevelOrder() {
 }
 
 // 获取二分搜索树中的最小值
-func (b *BST) Minimum() int {
+func (b *BST) Minimum() *Node {
 	if b.IsEmpty() {
 		log.Fatal("BST is empty")
 	}
@@ -97,15 +98,28 @@ func (b *BST) Maximum() int {
 }
 
 // 删除二分搜索树中的最小值
-func (b *BST) RemoveMin() int {
+func (b *BST) RemoveMin() *Node {
 	e := b.Minimum()
 	b.root = b.root.removeMin()
 	b.size--
 	return e
 }
 
-func (b *BST) RemoveMax() {
+// 删除二分搜索树中的最大值
+func (b *BST) RemoveMax() int {
+	e := b.Maximum()
+	b.root = b.root.removeMax()
+	b.size--
+	return e
+}
 
+func (b *BST) Remove(k int) {
+	if b.IsEmpty() {
+		log.Fatal("BST is empty")
+	}
+	b.root = b.root.remove(k)
+	b.size--
+	return
 }
 
 func (b *BST) String() string {

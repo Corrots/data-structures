@@ -22,8 +22,12 @@ func main() {
 	// 层序遍历
 	bst.LevelOrder()
 	fmt.Println()
-	fmt.Println(bst.Minimum())
-	fmt.Println(bst.Maximum())
-	fmt.Println(bst.RemoveMin())
-	fmt.Println(bst.RemoveMin())
+	//fmt.Println(bst.Minimum())
+	//fmt.Println(bst.Maximum())
+	//fmt.Println(bst.RemoveMin())
+	//fmt.Println(bst.RemoveMin())
+	//fmt.Println(bst.RemoveMax())
+	//fmt.Println(bst.RemoveMax())
+	bst.Remove(4)
+	bst.LevelOrder()
 }
