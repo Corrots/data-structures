@@ -2,6 +2,7 @@ package v2
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/corrots/data-structures/stack/linkedliststack"
 )
@@ -26,6 +27,7 @@ func (b *BST) IsEmpty() bool {
 // 向二分搜索树中插入元素
 func (b *BST) Add(k int) {
 	b.root = b.root.add(k)
+	b.size++
 }
 
 func (b *BST) Contains(k int) bool {
@@ -76,6 +78,34 @@ func (b *BST) LevelOrder() {
 			q = append(q, node.right)
 		}
 	}
+}
+
+// 获取二分搜索树中的最小值
+func (b *BST) Minimum() int {
+	if b.IsEmpty() {
+		log.Fatal("BST is empty")
+	}
+	return b.root.minimum()
+}
+
+// 获取二分搜索树中的最大值
+func (b *BST) Maximum() int {
+	if b.IsEmpty() {
+		log.Fatal("BST is empty")
+	}
+	return b.root.maximum()
+}
+
+// 删除二分搜索树中的最小值
+func (b *BST) RemoveMin() int {
+	e := b.Minimum()
+	b.root = b.root.removeMin()
+	b.size--
+	return e
+}
+
+func (b *BST) RemoveMax() {
+
 }
 
 func (b *BST) String() string {

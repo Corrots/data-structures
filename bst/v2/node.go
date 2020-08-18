@@ -73,6 +73,33 @@ func (n *Node) postOrder() {
 	fmt.Printf("%d ", n.key)
 }
 
+// 获取以n为根节点的二分搜索树中的最小值
+func (n *Node) minimum() int {
+	if n.left == nil {
+		return n.key
+	}
+	return n.left.minimum()
+}
+
+// 获取以n为根节点的二分搜索树中的最大值
+func (n *Node) maximum() int {
+	if n.right == nil {
+		return n.key
+	}
+	return n.right.maximum()
+}
+
+// 删除以n为根节点的二分搜索树中的最小值
+func (n *Node) removeMin() *Node {
+	if n.left == nil {
+		rightNode := n.right
+		n.right = nil
+		return rightNode
+	}
+	n.left = n.left.removeMin()
+	return n
+}
+
 func (n *Node) String(depth int) string {
 	var res strings.Builder
 	if n == nil {
