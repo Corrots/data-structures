@@ -13,6 +13,9 @@ func main() {
 		bst.Add(v)
 	}
 	bst.PreOrder()
-	fmt.Println("\n")
-	fmt.Println(bst)
+	fmt.Println()
+	bst.InOrder()
+	fmt.Println()
+	bst.PostOrder()
+	//fmt.Println(bst)
 }

@@ -44,6 +44,7 @@ func (n *Node) contains(k int) bool {
 	}
 }
 
+// 以node为根节点的二分搜索树的前序遍历
 func (n *Node) preOrder() {
 	if n == nil {
 		return
@@ -51,6 +52,25 @@ func (n *Node) preOrder() {
 	fmt.Printf("%d ", n.key)
 	n.left.preOrder()
 	n.right.preOrder()
+}
+
+// 以node为根节点的中序遍历
+func (n *Node) inOrder() {
+	if n == nil {
+		return
+	}
+	n.left.inOrder()
+	fmt.Printf("%d ", n.key)
+	n.right.inOrder()
+}
+
+func (n *Node) postOrder() {
+	if n == nil {
+		return
+	}
+	n.left.postOrder()
+	n.right.postOrder()
+	fmt.Printf("%d ", n.key)
 }
 
 func (n *Node) String(depth int) string {
