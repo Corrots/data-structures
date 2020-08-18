@@ -26,8 +26,19 @@ func (b *BST) Contains(k int) bool {
 	return b.root.contains(k)
 }
 
+// 二分搜索树的前序遍历
 func (b *BST) PreOrder() {
 	b.root.preOrder()
+}
+
+// 二分搜索树的中序遍历
+func (b *BST) InOrder() {
+	b.root.inOrder()
+}
+
+// 二分搜索树的中序遍历
+func (b *BST) PostOrder() {
+	b.root.postOrder()
 }
 
 func (b *BST) String() string {
