@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	v2 "github.com/corrots/data-structures/bst/v2"
 )
 
@@ -12,10 +10,13 @@ func main() {
 	for _, v := range nums {
 		bst.Add(v)
 	}
-	bst.PreOrder()
-	fmt.Println()
-	bst.InOrder()
-	fmt.Println()
-	bst.PostOrder()
+	//bst.PreOrder()
+	//fmt.Println()
+	//bst.PreOrderNR()
+	//bst.InOrder()
+	//fmt.Println()
+	//bst.PostOrder()
 	//fmt.Println(bst)
+	// 层序遍历
+	bst.LevelOrder()
 }
