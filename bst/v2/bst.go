@@ -118,7 +118,6 @@ func (b *BST) Remove(k int) {
 		log.Fatal("BST is empty")
 	}
 	b.root = b.root.remove(k)
-	b.size--
 	return
 }
 

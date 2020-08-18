@@ -144,9 +144,10 @@ func (n *Node) remove(k int) *Node {
 			return nodeLeft
 		}
 		// 左右孩子都!=nil
-		successor := copyNode(n.right.minimum())
+		successor := n.right.minimum()
 		successor.right = n.right.removeMin()
 		successor.left = n.left
+		n.left, n.right = nil, nil
 		return successor
 	}
 }
