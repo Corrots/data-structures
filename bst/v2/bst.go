@@ -1,5 +1,11 @@
 package v2
 
+import (
+	"fmt"
+
+	"github.com/corrots/data-structures/stack/linkedliststack"
+)
+
 type BST struct {
 	root *Node
 	size int
@@ -29,6 +35,21 @@ func (b *BST) Contains(k int) bool {
 // 二分搜索树的前序遍历
 func (b *BST) PreOrder() {
 	b.root.preOrder()
+}
+
+func (b *BST) PreOrderNR() {
+	stack := linkedliststack.NewStack()
+	stack.Push(b.root)
+	for !stack.IsEmpty() {
+		cur := stack.Pop().(*Node)
+		fmt.Printf("%d ", cur.key)
+		if cur.right != nil {
+			stack.Push(cur.right)
+		}
+		if cur.left != nil {
+			stack.Push(cur.left)
+		}
+	}
 }
 
 // 二分搜索树的中序遍历

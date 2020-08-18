@@ -14,8 +14,9 @@ func main() {
 	}
 	bst.PreOrder()
 	fmt.Println()
-	bst.InOrder()
-	fmt.Println()
-	bst.PostOrder()
+	bst.PreOrderNR()
+	//bst.InOrder()
+	//fmt.Println()
+	//bst.PostOrder()
 	//fmt.Println(bst)
 }
