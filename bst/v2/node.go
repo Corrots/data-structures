@@ -119,31 +119,32 @@ func (n *Node) removeMax() *Node {
 	return n
 }
 
+// 在以n为根的二分搜索树中删除节点k
 func (n *Node) remove(k int) *Node {
 	if n == nil {
 		return nil
 	}
-	// 先搜索k对应的节点
-	if k < n.key {
+	if k < n.key { // 在n的左子树中查找删除k
 		n.left = n.left.remove(k)
 		return n
-	} else if k > n.key {
+	} else if k > n.key { // 在n的右子树中查找删除k
 		n.right = n.right.remove(k)
 		return n
-	} else { // k == n.key(找到要删除的节点了)
-		// n的左孩子=nil，直接返回右孩子作为n
+	} else { // k == n.key
 		if n.left == nil {
-			nodeRight := n.right
+			rightNode := n.right
 			n.right = nil
-			return nodeRight
+			return rightNode
 		}
-		// 右孩子=nil
 		if n.right == nil {
-			nodeLeft := n.left
+			leftNode := n.left
 			n.left = nil
-			return nodeLeft
+			return leftNode
 		}
-		// 左右孩子都!=nil
+		// 左右子树 != nil
+		// 1.找到n的后继节点;
+		// 2.将删除后继节点后的n的右子树作为后继节点的右子树;
+		// 3.后继节点的左子树 = n的左子树
 		successor := n.right.minimum()
 		successor.right = n.right.removeMin()
 		successor.left = n.left
