@@ -114,12 +114,7 @@ func (b *BST) RemoveMax() int {
 }
 
 func (b *BST) Remove(k int) {
-	if b.IsEmpty() {
-		log.Fatal("BST is empty")
-	}
 	b.root = b.root.remove(k)
-	b.size--
-	return
 }
 
 func (b *BST) String() string {

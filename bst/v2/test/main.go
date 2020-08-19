@@ -30,4 +30,7 @@ func main() {
 	//fmt.Println(bst.RemoveMax())
 	bst.Remove(4)
 	bst.LevelOrder()
+	fmt.Println()
+	bst.Remove(6)
+	bst.LevelOrder()
 }
