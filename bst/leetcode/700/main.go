@@ -10,6 +10,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+// https://leetcode-cn.com/problems/search-in-a-binary-search-tree/
 func searchBST(root *TreeNode, val int) *TreeNode {
 	if root == nil {
 		return nil
