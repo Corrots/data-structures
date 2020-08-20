@@ -15,11 +15,11 @@ func uniqueMorseRepresentations(words []string) int {
 	morse := []string{".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."}
 	m := make(map[string]int)
 	for _, word := range words {
-		var s strings.Builder
+		var res strings.Builder
 		for _, v := range word {
-			s.WriteString(morse[v-'a'])
+			res.WriteString(morse[v-'a'])
 		}
-		m[s.String()]++
+		m[res.String()]++
 	}
 	return len(m)
 }
