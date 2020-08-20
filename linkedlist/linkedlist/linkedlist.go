@@ -6,18 +6,18 @@ import (
 	"strings"
 )
 
-type Node struct {
+type ListNode struct {
 	e    interface{}
-	next *Node
+	next *ListNode
 }
 
 type LinkedList struct {
-	dummyHead *Node
+	dummyHead *ListNode
 	size      int
 }
 
-func newNode(e interface{}, next *Node) *Node {
-	return &Node{e: e, next: next}
+func newNode(e interface{}, next *ListNode) *ListNode {
+	return &ListNode{e: e, next: next}
 }
 
 func New() *LinkedList {
