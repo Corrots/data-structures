@@ -1,77 +1,61 @@
 package bstmap
 
-import (
-	"fmt"
-	"strings"
-)
-
 type TreeNode struct {
 	key   int
+	val   interface{}
 	left  *TreeNode
 	right *TreeNode
 }
 
-func newTreeNode(k int) *TreeNode {
-	return &TreeNode{key: k}
+func newTreeNode(k int, v interface{}) *TreeNode {
+	return &TreeNode{key: k, val: v}
 }
 
-// 向以node为根的二分搜索树中添加元素e
-// 返回插入新节点后以node为根的二分搜索树
-func (n *TreeNode) add(k int) *TreeNode {
+// 根据k来获取指定的节点
+func (n *TreeNode) getTreeNode(k int) *TreeNode {
 	if n == nil {
-		return newTreeNode(k)
+		return nil
 	}
-	// k == n.key 不做任何操作
+	if k == n.key {
+		return n
+	}
 	if k < n.key {
-		n.left = n.left.add(k)
-	} else if k > n.key {
-		n.right = n.right.add(k)
+		return n.left.getTreeNode(k)
+	} else {
+		return n.right.getTreeNode(k)
+	}
+}
+
+// 向以node为根的二分搜索树中添加元素(k, v)
+// 返回插入新节点后以node为根的二分搜索树
+func (n *TreeNode) add(k int, v interface{}) *TreeNode {
+	if n == nil {
+		return newTreeNode(k, v)
+	}
+	// k == n.key时更新操作
+	if k == n.key {
+		n.val = v
+	} else if k < n.key {
+		n.left = n.left.add(k, v)
+	} else {
+		n.right = n.right.add(k, v)
 	}
 	return n
 }
 
 // 查找以node为根的二分搜索树中是否包含节点k
-func (n *TreeNode) contains(k int) bool {
-	if n == nil {
-		return false
-	}
-	if k == n.key {
-		return true
-	} else if k < n.key {
-		return n.left.contains(k)
-	} else {
-		return n.right.contains(k)
-	}
-}
-
-// 以node为根节点的二分搜索树的前序遍历
-func (n *TreeNode) preOrder() {
-	if n == nil {
-		return
-	}
-	fmt.Printf("%d ", n.key)
-	n.left.preOrder()
-	n.right.preOrder()
-}
-
-// 以node为根节点的中序遍历
-func (n *TreeNode) inOrder() {
-	if n == nil {
-		return
-	}
-	n.left.inOrder()
-	fmt.Printf("%d ", n.key)
-	n.right.inOrder()
-}
-
-func (n *TreeNode) postOrder() {
-	if n == nil {
-		return
-	}
-	n.left.postOrder()
-	n.right.postOrder()
-	fmt.Printf("%d ", n.key)
-}
+//func (n *TreeNode) contains(k int) bool {
+//	if n == nil {
+//		return false
+//	}
+//	if k == n.key {
+//		return true
+//	} else if k < n.key {
+//		return n.left.contains(k)
+//	} else {
+//		return n.right.contains(k)
+//	}
+//}
 
 // 获取以n为根节点的二分搜索树中的最小值
 func (n *TreeNode) minimum() *TreeNode {
@@ -79,14 +63,6 @@ func (n *TreeNode) minimum() *TreeNode {
 		return n
 	}
 	return n.left.minimum()
-}
-
-// 获取以n为根节点的二分搜索树中的最大值
-func (n *TreeNode) maximum() int {
-	if n.right == nil {
-		return n.key
-	}
-	return n.right.maximum()
 }
 
 // 删除以n为根节点的二分搜索树中的最小值
@@ -97,17 +73,6 @@ func (n *TreeNode) removeMin() *TreeNode {
 		return rightNode
 	}
 	n.left = n.left.removeMin()
-	return n
-}
-
-// 删除以n为根节点的二分搜索树中的最小值
-func (n *TreeNode) removeMax() *TreeNode {
-	if n.right == nil {
-		nodeLeft := n.left
-		n.left = nil
-		return nodeLeft
-	}
-	n.right = n.right.removeMax()
 	return n
 }
 
@@ -143,32 +108,4 @@ func (n *TreeNode) remove(k int) *TreeNode {
 		n.left, n.right = nil, nil
 		return successor
 	}
-}
-
-func (n *TreeNode) String(depth int) string {
-	var res strings.Builder
-	if n == nil {
-		res.WriteString(depthString(depth) + "nil\n")
-		return res.String()
-	}
-	res.WriteString(fmt.Sprintf("%s%d\n", depthString(depth), n.key))
-	res.WriteString(n.left.String(depth + 1))
-	res.WriteString(n.right.String(depth + 1))
-	return res.String()
-}
-
-func (n *TreeNode) generateBSTString(depth int, res *strings.Builder) {
-	if n == nil {
-		res.WriteString(depthString(depth) + "nil\n")
-		return
-	}
-	res.WriteString(fmt.Sprintf("%s%d\n", depthString(depth), n.key))
-	n.left.generateBSTString(depth+1, res)
-	n.right.generateBSTString(depth+1, res)
-}
-
-func depthString(depth int) string {
-	var res strings.Builder
-	res.WriteString(strings.Repeat("--", depth))
-	return res.String()
 }
