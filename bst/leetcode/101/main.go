@@ -12,7 +12,7 @@ type TreeNode struct {
 
 // https://leetcode-cn.com/problems/symmetric-tree/
 func isSymmetric(root *TreeNode) bool {
-	return check(root.Left, root.Right)
+	return check(root, root)
 }
 
 func check(p, q *TreeNode) bool {
