@@ -1,5 +1,6 @@
 package bstmap
 
+// 基于二分搜索树实现的Map
 type BSTMap struct {
 	bst *BST
 }
