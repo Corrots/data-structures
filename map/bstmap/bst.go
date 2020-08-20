@@ -1,10 +1,7 @@
 package bstmap
 
 import (
-	"fmt"
 	"log"
-
-	"github.com/corrots/data-structures/stack/linkedliststack"
 )
 
 type BST struct {
@@ -24,61 +21,30 @@ func (b *BST) IsEmpty() bool {
 	return b.size == 0
 }
 
+func (b *BST) Get(k int) interface{} {
+	node := b.root.getTreeNode(k)
+	if node != nil {
+		return node.val
+	}
+	return nil
+}
+
+func (b *BST) Set(k int, val interface{}) {
+	node := b.root.getTreeNode(k)
+	if node == nil {
+		log.Fatalf("key: %d doesn't exist\n", k)
+	}
+	node.val = val
+}
+
 // 向二分搜索树中插入元素
-func (b *BST) Add(k int) {
-	b.root = b.root.add(k)
+func (b *BST) Add(k int, v interface{}) {
+	b.root = b.root.add(k, v)
 	b.size++
 }
 
 func (b *BST) Contains(k int) bool {
-	return b.root.contains(k)
-}
-
-// 二分搜索树的前序遍历
-func (b *BST) PreOrder() {
-	b.root.preOrder()
-}
-
-func (b *BST) PreOrderNR() {
-	stack := linkedliststack.NewStack()
-	stack.Push(b.root)
-	for !stack.IsEmpty() {
-		cur := stack.Pop().(*TreeNode)
-		fmt.Printf("%d ", cur.key)
-		if cur.right != nil {
-			stack.Push(cur.right)
-		}
-		if cur.left != nil {
-			stack.Push(cur.left)
-		}
-	}
-}
-
-// 二分搜索树的中序遍历
-func (b *BST) InOrder() {
-	b.root.inOrder()
-}
-
-// 二分搜索树的后序遍历
-func (b *BST) PostOrder() {
-	b.root.postOrder()
-}
-
-// 二分搜索树的层序遍历
-func (b *BST) LevelOrder() {
-	var q []*TreeNode
-	q = append(q, b.root)
-	for len(q) > 0 {
-		node := q[0]
-		q = q[1:]
-		fmt.Printf("%d ", node.key)
-		if node.left != nil {
-			q = append(q, node.left)
-		}
-		if node.right != nil {
-			q = append(q, node.right)
-		}
-	}
+	return b.root.getTreeNode(k) != nil
 }
 
 // 获取二分搜索树中的最小值
@@ -89,14 +55,6 @@ func (b *BST) Minimum() *TreeNode {
 	return b.root.minimum()
 }
 
-// 获取二分搜索树中的最大值
-func (b *BST) Maximum() int {
-	if b.IsEmpty() {
-		log.Fatal("BST is empty")
-	}
-	return b.root.maximum()
-}
-
 // 删除二分搜索树中的最小值
 func (b *BST) RemoveMin() *TreeNode {
 	e := b.Minimum()
@@ -105,18 +63,11 @@ func (b *BST) RemoveMin() *TreeNode {
 	return e
 }
 
-// 删除二分搜索树中的最大值
-func (b *BST) RemoveMax() int {
-	e := b.Maximum()
-	b.root = b.root.removeMax()
-	b.size--
-	return e
-}
-
-func (b *BST) Remove(k int) {
-	b.root = b.root.remove(k)
-}
-
-func (b *BST) String() string {
-	return b.root.String(0)
+func (b *BST) Remove(k int) interface{} {
+	node := b.root.getTreeNode(k)
+	if node != nil {
+		b.root = b.root.remove(k)
+		return node.val
+	}
+	return nil
 }
