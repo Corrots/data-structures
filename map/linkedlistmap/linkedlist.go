@@ -1,4 +1,4 @@
-package _map
+package linkedlistmap
 
 import (
 	"fmt"
@@ -6,22 +6,22 @@ import (
 	"strings"
 )
 
-type Node struct {
+type ListNode struct {
 	key  *int
 	val  interface{}
-	next *Node
+	next *ListNode
 }
 
 type LinkedList struct {
-	dummyHead *Node
+	dummyHead *ListNode
 	size      int
 }
 
-func newNode(k *int, v interface{}, next *Node) *Node {
-	return &Node{key: k, val: v, next: next}
+func newNode(k *int, v interface{}, next *ListNode) *ListNode {
+	return &ListNode{key: k, val: v, next: next}
 }
 
-func (l *LinkedList) getNode(k *int) *Node {
+func (l *LinkedList) getNode(k *int) *ListNode {
 	cur := l.dummyHead
 	for cur != nil {
 		if cur.key == k {

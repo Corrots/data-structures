@@ -1,4 +1,4 @@
-package _map
+package linkedlistmap
 
 // 基于linkedlist实现的Map
 type LinkedListMap struct {
