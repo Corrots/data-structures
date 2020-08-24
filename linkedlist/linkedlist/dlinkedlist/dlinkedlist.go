@@ -81,68 +81,25 @@ func (l *LinkedList) AddTail(e interface{}) {
 func (l *LinkedList) Get(index int) interface{} {
 	l.checkIndex(index)
 	// 选择从head还是tail进行遍历
-	if index+1 < l.size-index {
-		cur := l.head.next
-		for i := 0; i < index; i++ {
-			cur = cur.next
-		}
-		return cur.val
-	}
-	cur := l.tail.prev
-	for i := 0; i < l.size-index; i++ {
-		cur = cur.prev
-	}
-	return cur.val
+
 }
 
 func (l *LinkedList) Set(index int, e interface{}) {
 	l.checkIndex(index)
-	if index+1 < l.size-index {
-		cur := l.head.next
-		for i := 0; i < index; i++ {
-			cur = cur.next
-		}
-		cur.val = e
-	}
-	cur := l.tail.prev
-	for i := 0; i < l.size-index; i++ {
-		cur = cur.prev
-	}
-	cur.val = e
+
 }
 
 func (l *LinkedList) Remove(index int) interface{} {
 	l.checkIndex(index)
-	var res interface{}
-	if index+1 < l.size-index {
-		prev := l.head
-		for i := 0; i < index; i++ {
-			prev = prev.next
-		}
-		delNode := prev.next
-		res = delNode.val
-		prev.next = delNode.next
-		delNode.next, delNode.prev = nil, nil
-	} else {
-		pred := l.tail
-		for i := 0; i < l.size-index-1; i++ {
-			pred = pred.prev
-		}
-		delNode := pred.prev
-		res = delNode.val
-		pred.prev = delNode.prev
-		delNode.prev, delNode.next = nil, nil
-	}
-	l.size--
-	return res
+
 }
 
 func (l *LinkedList) RemoveFirst() interface{} {
-	return l.Remove(0)
+
 }
 
 func (l *LinkedList) RemoveLast() interface{} {
-	return l.Remove(l.size - 1)
+
 }
 
 func (l *LinkedList) checkIndex(index int) {
