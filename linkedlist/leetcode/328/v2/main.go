@@ -3,34 +3,29 @@ package main
 import "fmt"
 
 func main() {
-	nums := []int{1, 4, 3, 2, 5, 2}
+	nums := []int{1, 2, 3, 4, 5}
 	head := CreateLinkedList(nums, len(nums))
 	PrintLinkedList(head)
-	p := partition(head, 3)
-	PrintLinkedList(p)
+	o := oddEvenList(head)
+	PrintLinkedList(o)
 }
 
-// https://leetcode-cn.com/problems/partition-list/
-func partition(head *ListNode, x int) *ListNode {
+// https://leetcode-cn.com/problems/odd-even-linked-list/
+func oddEvenList(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
-	beforeHead, afterHead := &ListNode{}, &ListNode{}
-	before := beforeHead
-	after := afterHead
-	for head != nil {
-		if head.Val < x {
-			before.Next = head
-			before = before.Next
-		} else {
-			after.Next = head
-			after = after.Next
-		}
-		head = head.Next
+	odd := head
+	even := head.Next
+	evenHead := even
+	for even != nil && even.Next != nil {
+		odd.Next = even.Next
+		odd = odd.Next
+		even.Next = odd.Next
+		even = even.Next
 	}
-	after.Next = nil
-	before.Next = afterHead.Next
-	return beforeHead.Next
+	odd.Next = evenHead
+	return head
 }
 
 type ListNode struct {
