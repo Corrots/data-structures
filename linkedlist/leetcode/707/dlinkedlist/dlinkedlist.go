@@ -35,9 +35,10 @@ func (this *MyLinkedList) Get(index int) int {
 		return -1
 	}
 	var cur *ListNode
-	if index <= this.size-index {
+	if index+1 < this.size-index {
 		cur = this.head
-		for i := 0; i < index; i++ {
+		// 这里是直接获取index位置的节点,故需index+1
+		for i := 0; i < index+1; i++ {
 			cur = cur.next
 		}
 	} else {
@@ -70,11 +71,14 @@ func (this *MyLinkedList) AddAtTail(val int) {
 
 /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
 func (this *MyLinkedList) AddAtIndex(index int, val int) {
-	if index < 0 || index > this.size {
+	if index > this.size {
 		return
 	}
+	if index < 0 {
+		index = 0
+	}
 	var pred, succ *ListNode
-	if index <= this.size-index {
+	if index < this.size-index {
 		pred = this.head
 		for i := 0; i < index; i++ {
 			pred = pred.next
@@ -95,11 +99,11 @@ func (this *MyLinkedList) AddAtIndex(index int, val int) {
 
 /** Delete the index-th node in the linked list, if the index is valid. */
 func (this *MyLinkedList) DeleteAtIndex(index int) {
-	if index < 0 || index > this.size {
+	if index < 0 || index >= this.size {
 		return
 	}
 	var pred, succ *ListNode
-	if index <= this.size-index {
+	if index < this.size-index {
 		pred = this.head
 		for i := 0; i < index; i++ {
 			pred = pred.next
@@ -107,7 +111,7 @@ func (this *MyLinkedList) DeleteAtIndex(index int) {
 		succ = pred.next.next
 	} else {
 		succ = this.tail
-		for i := 0; i < this.size-index; i++ {
+		for i := 0; i < this.size-index-1; i++ {
 			succ = succ.prev
 		}
 		pred = succ.prev.prev
