@@ -1,15 +1,33 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	nums := []int{1, 2, 3, 4, 5}
+	nums := []int{1, 1, 1}
 	head := CreateLinkedList(nums, len(nums))
 	PrintLinkedList(head)
-	rev := reverseBetween(head, 2, 4)
-	PrintLinkedList(rev)
+	mod1 := deleteDuplicates(head)
+	PrintLinkedList(mod1)
+	//nums1 := []int{1, 1, 2, 3, 3}
+
+}
+
+// https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/
+func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	cur := head
+	for cur != nil {
+		next := cur.Next
+		if next != nil && cur.Val == next.Val {
+			delNode := cur.Next
+			cur.Next = delNode.Next
+		} else {
+			cur = cur.Next
+		}
+	}
+	return head
 }
 
 type ListNode struct {
@@ -41,26 +59,4 @@ func PrintLinkedList(head *ListNode) {
 		cur = cur.Next
 	}
 	fmt.Printf("nil\n")
-}
-
-// https://leetcode-cn.com/problems/reverse-linked-list-ii/
-func reverseBetween(head *ListNode, m int, n int) *ListNode {
-	if m == 1 {
-		return reverseN(head, n)
-	}
-	head.Next = reverseBetween(head.Next, m-1, n-1)
-	return head
-}
-
-var succ *ListNode
-
-func reverseN(head *ListNode, n int) *ListNode {
-	if n == 1 {
-		succ = head.Next
-		return head
-	}
-	rev := reverseN(head.Next, n-1)
-	head.Next.Next = head
-	head.Next = succ
-	return rev
 }
