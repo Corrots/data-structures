@@ -3,31 +3,35 @@ package main
 import "fmt"
 
 func main() {
-	nums := []int{1, 1, 1}
+	nums := []int{1, 4, 3, 2, 5, 2}
 	head := CreateLinkedList(nums, len(nums))
 	PrintLinkedList(head)
-	mod1 := deleteDuplicates(head)
-	PrintLinkedList(mod1)
-	//nums1 := []int{1, 1, 2, 3, 3}
-
+	p := partition(head, 3)
+	PrintLinkedList(p)
 }
 
-// https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/
-func deleteDuplicates(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
+// https://leetcode-cn.com/problems/partition-list/
+func partition(head *ListNode, x int) *ListNode {
+	if head == nil {
+		return nil
 	}
-	cur := head
-	for cur != nil {
-		if cur.Next != nil && cur.Val == cur.Next.Val {
-			delNode := cur.Next
-			cur.Next = delNode.Next
-			delNode.Next = nil
+	beforeHead := &ListNode{}
+	before := beforeHead
+	afterHead := &ListNode{}
+	after := afterHead
+	for head != nil {
+		if head.Val < x {
+			before.Next = head
+			before = before.Next
 		} else {
-			cur = cur.Next
+			after.Next = head
+			after = after.Next
 		}
+		head = head.Next
 	}
-	return head
+	after.Next = nil
+	before.Next = afterHead.Next
+	return beforeHead.Next
 }
 
 type ListNode struct {
