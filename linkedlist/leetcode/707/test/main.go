@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	linkedlist "github.com/corrots/data-structures/linkedlist/leetcode/707"
+	"github.com/corrots/data-structures/linkedlist/leetcode/707/linkedlist"
 )
 
 func main() {
