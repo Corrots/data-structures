@@ -15,9 +15,8 @@ func partition(head *ListNode, x int) *ListNode {
 	if head == nil {
 		return nil
 	}
-	beforeHead := &ListNode{}
+	beforeHead, afterHead := &ListNode{}, &ListNode{}
 	before := beforeHead
-	afterHead := &ListNode{}
 	after := afterHead
 	for head != nil {
 		if head.Val < x {
