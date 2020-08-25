@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	nums := []int{1, 2, 3, 4, 5}
@@ -8,6 +10,15 @@ func main() {
 	PrintLinkedList(head)
 	rev := reverseBetween(head, 2, 4)
 	PrintLinkedList(rev)
+}
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func NewListNode(val int) *ListNode {
+	return &ListNode{Val: val}
 }
 
 func CreateLinkedList(nums []int, n int) *ListNode {
@@ -30,15 +41,6 @@ func PrintLinkedList(head *ListNode) {
 		cur = cur.Next
 	}
 	fmt.Printf("nil\n")
-}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
-
-func NewListNode(val int) *ListNode {
-	return &ListNode{Val: val}
 }
 
 // https://leetcode-cn.com/problems/reverse-linked-list-ii/
