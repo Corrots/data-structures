@@ -1,4 +1,4 @@
-package solution
+package v1
 
 func RemoveElements(head *ListNode, val int) *ListNode {
 	for head != nil && head.Val == val {
