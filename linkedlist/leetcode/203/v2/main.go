@@ -3,31 +3,29 @@ package main
 import "fmt"
 
 func main() {
-	nums := []int{1, 2, 3, 4, 5}
-	head := CreateLinkedList(nums, len(nums))
-	PrintLinkedList(head)
-	o := oddEvenList(head)
-	PrintLinkedList(o)
+	nums1 := []int{1}
+	l1 := CreateLinkedList(nums1, len(nums1))
+	PrintLinkedList(l1)
+	l2 := removeElements(l1, 1)
+	PrintLinkedList(l2)
 }
 
-// https://leetcode-cn.com/problems/odd-even-linked-list/
-func oddEvenList(head *ListNode) *ListNode {
+// https://leetcode-cn.com/problems/remove-linked-list-elements/
+func removeElements(head *ListNode, val int) *ListNode {
 	if head == nil {
 		return nil
 	}
-	// 用head和odd来保存奇链表的头和尾指针
-	odd := head
-	// 用evenHead和even来保存偶链表的头和尾指针
-	even := head.Next
-	evenHead := even
-	for even != nil && even.Next != nil {
-		odd.Next = even.Next
-		odd = odd.Next
-		even.Next = odd.Next
-		even = even.Next
+	dummyHead := &ListNode{}
+	dummyHead.Next = head
+	prev := dummyHead
+	for prev.Next != nil {
+		if prev.Next.Val == val {
+			prev.Next = prev.Next.Next
+		} else {
+			prev = prev.Next
+		}
 	}
-	odd.Next = evenHead
-	return head
+	return dummyHead.Next
 }
 
 type ListNode struct {

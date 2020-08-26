@@ -1,4 +1,4 @@
-package solution
+package v1
 
 // 递归实现
 func RemoveElements3(head *ListNode, val int) *ListNode {
