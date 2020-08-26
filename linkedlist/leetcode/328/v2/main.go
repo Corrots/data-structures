@@ -15,7 +15,9 @@ func oddEvenList(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
+	// 用head和odd来保存奇链表的头和尾指针
 	odd := head
+	// 用evenHead和even来保存偶链表的头和尾指针
 	even := head.Next
 	evenHead := even
 	for even != nil && even.Next != nil {
