@@ -20,22 +20,20 @@ func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 		return l1
 	}
 	dummyHead := &ListNode{}
-	p := l1
-	q := l2
 	cur := dummyHead
-	for p != nil || q != nil {
-		if p == nil {
-			cur.Next = q
-			q = q.Next
-		} else if q == nil {
-			cur.Next = p
-			p = p.Next
-		} else if p.Val <= q.Val {
-			cur.Next = p
-			p = p.Next
+	for l1 != nil || l2 != nil {
+		if l1 == nil {
+			cur.Next = l2
+			l2 = l2.Next
+		} else if l2 == nil {
+			cur.Next = l1
+			l1 = l1.Next
+		} else if l1.Val <= l2.Val {
+			cur.Next = l1
+			l1 = l1.Next
 		} else {
-			cur.Next = q
-			q = q.Next
+			cur.Next = l2
+			l2 = l2.Next
 		}
 		cur = cur.Next
 	}
