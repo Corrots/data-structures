@@ -15,9 +15,8 @@ func swapPairs(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
-	dummyHead := &ListNode{}
-	dummyHead.Next = head
-	p := dummyHead
+	hair := &ListNode{Next: head}
+	p := hair
 	for p.Next != nil && p.Next.Next != nil {
 		node1 := p.Next
 		node2 := node1.Next
@@ -27,7 +26,7 @@ func swapPairs(head *ListNode) *ListNode {
 		p.Next = node2
 		p = node1
 	}
-	return dummyHead.Next
+	return hair.Next
 }
 
 type ListNode struct {
