@@ -12,12 +12,27 @@ func main() {
 
 // https://leetcode-cn.com/problems/insertion-sort-list/
 func insertionSortList(head *ListNode) *ListNode {
-	if head == nil {
-		return nil
+	if head == nil || head.Next == nil {
+		return head
 	}
-	dummyHead := &ListNode{Next: head}
-	prev := dummyHead
-
+	dummy := &ListNode{Next: head}
+	tail, sort := head, head.Next
+	for sort != nil {
+		if sort.Val < tail.Val {
+			pos := dummy
+			for pos.Next.Val < sort.Val {
+				pos = pos.Next
+			}
+			tail.Next = sort.Next
+			sort.Next = pos.Next
+			pos.Next = sort
+			sort = tail.Next
+		} else {
+			tail = tail.Next
+			sort = sort.Next
+		}
+	}
+	return dummy.Next
 }
 
 type ListNode struct {
