@@ -3,30 +3,36 @@ package main
 import "fmt"
 
 func main() {
-	nums := []int{1, 2, 3, 4, 5, 6}
+	nums := []int{4, 2, 1, 3}
 	l1 := CreateLinkedList(nums, len(nums))
 	PrintLinkedList(l1)
-	head := swapPairs(l1)
-	PrintLinkedList(head)
+	list := insertionSortList(l1)
+	PrintLinkedList(list)
 }
 
-// https://leetcode-cn.com/problems/swap-nodes-in-pairs/
-func swapPairs(head *ListNode) *ListNode {
-	if head == nil {
-		return nil
+// https://leetcode-cn.com/problems/insertion-sort-list/
+func insertionSortList(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
 	}
-	hair := &ListNode{Next: head}
-	p := hair
-	for p.Next != nil && p.Next.Next != nil {
-		node1 := p.Next
-		node2 := node1.Next
-		next := node2.Next
-		node2.Next = node1
-		node1.Next = next
-		p.Next = node2
-		p = node1
+	dummy := &ListNode{Next: head}
+	tail, sort := head, head.Next
+	for sort != nil {
+		if sort.Val < tail.Val {
+			pos := dummy
+			for pos.Next.Val < sort.Val {
+				pos = pos.Next
+			}
+			tail.Next = sort.Next
+			sort.Next = pos.Next
+			pos.Next = sort
+			sort = tail.Next
+		} else {
+			tail = tail.Next
+			sort = sort.Next
+		}
 	}
-	return hair.Next
+	return dummy.Next
 }
 
 type ListNode struct {
