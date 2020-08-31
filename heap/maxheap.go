@@ -28,6 +28,20 @@ func (h *MaxHeap) RightChild(index int) int {
 	return index*2 + 2
 }
 
+func (h *MaxHeap) Add(e interface{}) {
+	h.data = append(h.data, e)
+	h.shiftUp(len(h.data) - 1)
+}
+
+// 向堆中添加元素
+func (h *MaxHeap) shiftUp(k int) {
+	// 当k不为根节点,且k的父亲节点<元素k
+	for k > 0 && h.data[h.Parent(k)] < h.data[k] {
+		h.data[h.Parent(k)], h.data[k] = h.data[k], h.data[h.Parent(k)]
+		k = h.Parent(k)
+	}
+}
+
 func (h *MaxHeap) Len() int {
 	return len(h.data)
 }
