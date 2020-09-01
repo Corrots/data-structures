@@ -78,6 +78,14 @@ func (h *MinHeap) siftDown(k int) {
 	}
 }
 
+// 取出堆顶的元素，并替换为e
+func (h *MinHeap) Replace(e int) int {
+	res := h.FindMin()
+	h.data[0] = e
+	h.siftDown(0)
+	return res
+}
+
 func (h *MinHeap) Len() int {
 	return len(h.data)
 }
