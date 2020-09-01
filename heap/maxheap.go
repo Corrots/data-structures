@@ -42,6 +42,14 @@ func (h *MaxHeap) siftUp(k int) {
 	}
 }
 
+func (h *MaxHeap) FindMax() interface{} {
+	n := len(h.data)
+	if n == 0 {
+		log.Fatal("heap is empty")
+	}
+	return h.data[0]
+}
+
 // 删除堆顶的元素
 func (h *MaxHeap) ExtractMax() interface{} {
 	length := len(h.data)
@@ -53,14 +61,6 @@ func (h *MaxHeap) ExtractMax() interface{} {
 	h.data = h.data[:length-1]
 	h.siftDown(0)
 	return res
-}
-
-func (h *MaxHeap) FindMax() interface{} {
-	n := len(h.data)
-	if n == 0 {
-		log.Fatal("heap is empty")
-	}
-	return h.data[0]
 }
 
 func (h *MaxHeap) siftDown(k int) {
@@ -77,6 +77,14 @@ func (h *MaxHeap) siftDown(k int) {
 		h.data[k], h.data[j] = h.data[j], h.data[k]
 		k = j
 	}
+}
+
+// 取出堆顶的元素，并替换为元素e
+func (h *MaxHeap) Replace(e interface{}) interface{} {
+	res := h.FindMax()
+	h.data[0] = e
+	h.siftDown(0)
+	return res
 }
 
 func (h *MaxHeap) Len() int {
