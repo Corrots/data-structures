@@ -9,6 +9,6 @@ func HeapSort(nums []int) {
 		maxHeap.Add(v)
 	}
 	for i := len(nums) - 1; i >= 0; i-- {
-		nums[i] = maxHeap.ExtractMax().(int)
+		nums[i] = maxHeap.ExtractMax()
 	}
 }
