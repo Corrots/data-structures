@@ -80,9 +80,10 @@ func isMaxHeap(h *heap.MaxHeap, length int) bool {
 
 // 测试最小堆
 func TestMinHeap() {
-	count := 10
+	count := 1000000
 	minHeap := heap.NewMinHeap()
 	rand.Seed(time.Now().UnixNano())
+	start := time.Now()
 	for i := 0; i < count; i++ {
 		minHeap.Add(rand.Intn(count * 10))
 	}
@@ -90,12 +91,13 @@ func TestMinHeap() {
 	for i := 0; i < count; i++ {
 		nums[i] = minHeap.ExtractMin()
 	}
+	since := time.Since(start).Milliseconds()
 	for i := 1; i < len(nums); i++ {
 		if nums[i-1] > nums[i] {
 			log.Fatalf("Error ")
 		}
 	}
-	fmt.Println(nums)
+	fmt.Printf("spent %d ms\n", since)
 }
 
 // 测试最大堆
