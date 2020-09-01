@@ -22,7 +22,7 @@ func getLeastNumbers(arr []int, k int) []int {
 	for i := 0; i < k; i++ {
 		pq.Enqueue(arr[i])
 	}
-	// 遍历arr[k+1,n)，比较每个元素与队首元素的大小
+	// 遍历arr[k,n)，比较每个元素与队首元素的大小
 	// 若arr[i]<队首元素，则交换之
 	for i := k; i < len(arr); i++ {
 		if !pq.IsEmpty() && arr[i] < pq.GetFront().(int) {
