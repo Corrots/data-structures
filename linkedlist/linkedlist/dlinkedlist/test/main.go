@@ -34,7 +34,7 @@ func main() {
 	fmt.Println(ll)
 	fmt.Println("del: ", ll.Remove(2))
 	fmt.Println(ll)
-	//fmt.Println("del: ", ll.Remove(2))
+	//fmt.Println("del: ", ll.ExtractMax(2))
 
 	//ll.RemoveFirst()
 	//ll.RemoveLast()

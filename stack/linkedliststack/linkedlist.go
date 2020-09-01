@@ -103,7 +103,7 @@ func (l *LinkedList) Contains(e interface{}) bool {
 
 func (l *LinkedList) Remove(index int) interface{} {
 	if index < 0 || index >= l.size {
-		log.Fatal("Remove failed, illegal index")
+		log.Fatal("ExtractMax failed, illegal index")
 	}
 	prev := l.dummyHead
 	for i := 0; i < index; i++ {
