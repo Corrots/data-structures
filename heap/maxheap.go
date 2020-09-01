@@ -14,7 +14,7 @@ func NewMaxHeap() *MaxHeap {
 func HeapifyNew(nums []int) *MaxHeap {
 	maxHeap := &MaxHeap{data: nums}
 	// 从最后一个非叶子节点开始向前遍历
-	lastNonLeaf := (len(nums) - 1) / 2
+	lastNonLeaf := (len(nums) - 1 - 1) / 2
 	for i := lastNonLeaf; i >= 0; i-- {
 		maxHeap.siftDown(i)
 	}

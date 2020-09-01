@@ -7,14 +7,15 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/corrots/data-structures/heap"
 	"github.com/corrots/data-structures/sort/heapsort"
+
+	"github.com/corrots/data-structures/heap"
 )
 
 func main() {
 	//TestMaxHeap()
-	//TestHeapSort()
-	TestHeapify()
+	TestHeapSort()
+	//TestHeapify()
 }
 
 func TestHeapSort() {
@@ -22,10 +23,11 @@ func TestHeapSort() {
 	rand.Seed(time.Now().UnixNano())
 	nums := make([]int, opCount)
 	for i := 0; i < opCount; i++ {
-		nums[i] = rand.Intn(math.MaxInt64)
+		nums[i] = rand.Intn(opCount * 10)
 	}
 	start := time.Now()
-	heapsort.HeapSort(nums)
+	//heapsort.HeapSort(nums)
+	heapsort.InPlaceHeapSort(nums)
 	since := time.Since(start).Milliseconds()
 	for i := 1; i < len(nums); i++ {
 		if nums[i-1] > nums[i] {
