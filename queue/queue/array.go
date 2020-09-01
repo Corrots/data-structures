@@ -99,7 +99,7 @@ func (arr *Array) Find(e interface{}) int {
 
 func (arr *Array) Remove(i int) interface{} {
 	if i < 0 || i > arr.size {
-		log.Fatal("Remove failed, required i >= 0 and <= size")
+		log.Fatal("ExtractMax failed, required i >= 0 and <= size")
 	}
 	ret := arr.data[i]
 	for j := i + 1; j < arr.size; j++ {
