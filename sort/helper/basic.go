@@ -46,6 +46,19 @@ func GenerateRandArray(count, rangeLeft, rangeRight int) []int {
 	return nums
 }
 
+func GenerateNearlyOrderedArray(count, rangeLeft, rangeRight int) []int {
+	nums := make([]int, count)
+	rand.Seed(time.Now().UnixNano())
+	for i := 0; i < count; i++ {
+		nums[i] = i
+	}
+	for i := 0; i < 10; i++ {
+		randomIndex := rand.Intn(count)
+		nums[i], nums[randomIndex] = nums[randomIndex], nums[i]
+	}
+	return nums
+}
+
 func GenerateOrderedArray(count int) []int {
 	var nums []int
 	for i := 0; i < count; i++ {
