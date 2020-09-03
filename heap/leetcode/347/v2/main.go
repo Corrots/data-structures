@@ -24,15 +24,15 @@ func topKFrequent(nums []int, k int) []int {
 	minHeap := &MinHeap{}
 	for key, v := range freq {
 		if minHeap.Len() == k {
-			if v > minHeap.Peek().(*Feq).count {
+			if v > minHeap.Peek().(Feq).count {
 				heap.Pop(minHeap)
-				heap.Push(minHeap, &Feq{
+				heap.Push(minHeap, Feq{
 					val:   key,
 					count: v,
 				})
 			}
 		} else {
-			heap.Push(minHeap, &Feq{
+			heap.Push(minHeap, Feq{
 				val:   key,
 				count: v,
 			})
@@ -40,7 +40,7 @@ func topKFrequent(nums []int, k int) []int {
 	}
 	var res []int
 	for minHeap.Len() > 0 {
-		res = append(res, heap.Pop(minHeap).(*Feq).val)
+		res = append(res, heap.Pop(minHeap).(Feq).val)
 	}
 	return res
 }
@@ -50,7 +50,7 @@ type Feq struct {
 	count int
 }
 
-type MinHeap []*Feq
+type MinHeap []Feq
 
 func (h MinHeap) Len() int {
 	return len(h)
@@ -65,7 +65,7 @@ func (h MinHeap) Swap(i, j int) {
 }
 
 func (h *MinHeap) Push(e interface{}) {
-	*h = append(*h, e.(*Feq))
+	*h = append(*h, e.(Feq))
 }
 
 func (h *MinHeap) Pop() interface{} {
