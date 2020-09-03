@@ -13,6 +13,7 @@ func main() {
 }
 
 //https://leetcode-cn.com/problems/top-k-frequent-elements/
+// 最大堆解题
 func topKFrequent(nums []int, k int) []int {
 	// 统计每个元素出现的频率
 	freq := make(map[int]int)
