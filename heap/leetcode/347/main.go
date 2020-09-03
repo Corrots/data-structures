@@ -20,13 +20,14 @@ func topKFrequent(nums []int, k int) []int {
 		freq[v]++
 	}
 	minHeap := &FeqMinHeap{}
-	// 将hashMap中的所有数据对放入堆中
+	// 将记录元素->频率的所有数据对放入堆中
 	for k, v := range freq {
 		*minHeap = append(*minHeap, Feq{
 			val:   k,
 			count: v,
 		})
 	}
+	// heapify构建堆
 	heap.Init(minHeap)
 	res := make([]int, k)
 	// 从堆中取出k个元素即为频率最高的k个元素
