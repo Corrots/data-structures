@@ -1,12 +1,4 @@
-package main
-
-import "fmt"
-
-func main() {
-	nums := []int{3, 2, 5, 1, 4, 0}
-	InsertionSort(nums)
-	fmt.Println(nums)
-}
+package v2
 
 func InsertionSort(nums []int) {
 	n := len(nums)

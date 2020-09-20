@@ -12,7 +12,8 @@ func main() {
 	fmt.Println(nums)
 
 	opCount := 100000
-	t2 := helper.TestSort(opCount, InsertionSort)
+	nums1 := helper.GenerateRandArray(opCount, 0, opCount*10)
+	t2 := helper.TestSort(nums1, InsertionSort)
 	fmt.Printf("InsertionSort spend %d ms", t2)
 }
 
