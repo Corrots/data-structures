@@ -27,7 +27,7 @@ func merge(nums []int, l, mid, r int) {
 		} else if j > r {
 			nums[k] = tmp[i-l]
 			i++
-		} else if tmp[i-l] < tmp[j-l] {
+		} else if tmp[i-l] < tmp[j-l] { // 稳定性：需tmp[i-l] <= tmp[j-l]
 			nums[k] = tmp[i-l]
 			i++
 		} else {
