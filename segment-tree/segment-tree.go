@@ -15,6 +15,10 @@ func NewSegmentTree(arr []int) *SegmentTree {
 	}
 }
 
+func buildSegmentTree(treeIndex, l, r int) {
+
+}
+
 func (st *SegmentTree) Get(i int) int {
 	if i < 0 || i > len(st.data) {
 		log.Fatalf("Invalid index: %d\n", i)
