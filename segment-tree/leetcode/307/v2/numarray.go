@@ -1,10 +1,39 @@
-package segment_tree
+package v2
 
 import (
 	"fmt"
 	"log"
 	"strings"
 )
+
+type NumArray struct {
+	Tree *SegmentTree
+}
+
+func Constructor(nums []int) NumArray {
+	return NumArray{Tree: NewSegmentTree(nums, sumFunc)}
+}
+
+func (this *NumArray) Update(i int, val int) {
+	if this == nil {
+		log.Fatal("NumArray is nil")
+	}
+	if i < 0 || i >= this.Tree.Len() {
+		log.Fatalf("invalid index %d\n", i)
+	}
+	this.Tree.Set(i, val)
+}
+
+func (this *NumArray) SumRange(i int, j int) int {
+	if this == nil {
+		log.Fatal("NumArray is nil")
+	}
+	return this.Tree.Query(i, j)
+}
+
+func sumFunc(i, j int) int {
+	return i + j
+}
 
 type SegmentTree struct {
 	tree   []int
@@ -25,9 +54,6 @@ func NewSegmentTree(arr []int, mergeFunc func(int, int) int) *SegmentTree {
 
 // 在treeIndex位置创建表示区间[l...r]的线段树
 func (st *SegmentTree) buildSegmentTree(treeIndex, l, r int) {
-	if l > r {
-		return
-	}
 	if l == r {
 		st.tree[treeIndex] = st.data[l]
 		return
@@ -123,3 +149,10 @@ func (st *SegmentTree) String() string {
 	res.WriteString("]")
 	return res.String()
 }
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * obj := Constructor(nums);
+ * obj.Update(i,val);
+ * param_2 := obj.SumRange(i,j);
+ */
