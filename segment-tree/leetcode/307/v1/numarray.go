@@ -23,6 +23,8 @@ func Constructor(nums []int) NumArray {
 	}
 }
 
+// Update
+// 时间复杂度：O(n)
 func (this *NumArray) Update(i int, val int) {
 	if i < 0 || i > len(this.data) {
 		log.Fatalf("invalid index %v\n", i)
