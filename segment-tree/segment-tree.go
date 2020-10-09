@@ -44,6 +44,31 @@ func (st *SegmentTree) Get(i int) int {
 	return st.tree[i]
 }
 
+// 在以rootIndex为根的线段树中更新index的值为val
+func (st *SegmentTree) Set(index, val int) {
+	if index < 0 || index > st.Len() {
+		log.Fatal("invalid index")
+	}
+	st.set(0, 0, st.Len()-1, index, val)
+}
+
+// 在以treeIndex为根的线段树中，更新index的值为val
+func (st *SegmentTree) set(treeIndex, l, r, index, val int) {
+	if l == r {
+		st.tree[treeIndex] = val
+		return
+	}
+	mid := (r-l)/2 + l
+	leftTreeIndex := st.leftChild(treeIndex)
+	rightTreeIndex := st.rightChild(treeIndex)
+	if index >= mid+1 {
+		st.set(rightTreeIndex, mid+1, r, index, val)
+	} else { // index <= mid
+		st.set(leftTreeIndex, l, mid, index, val)
+	}
+	st.tree[treeIndex] = st.merger(st.tree[leftTreeIndex], st.tree[rightTreeIndex])
+}
+
 // 返回区间[queryL, queryR]的值
 func (st *SegmentTree) Query(queryL, queryR int) int {
 	if queryL < 0 || queryL >= st.Len() || queryR < 0 || queryR >= st.Len() || queryL > queryR {
