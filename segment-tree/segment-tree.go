@@ -41,7 +41,36 @@ func (st *SegmentTree) Get(i int) int {
 	if i < 0 || i > len(st.data) {
 		log.Fatalf("Invalid index: %d\n", i)
 	}
-	return st.data[i]
+	return st.tree[i]
+}
+
+// 返回区间[queryL, queryR]的值
+func (st *SegmentTree) Query(queryL, queryR int) int {
+	if queryL < 0 || queryL >= st.Len() || queryR < 0 || queryR >= st.Len() || queryL > queryR {
+		log.Fatal("invalid index")
+	}
+	return st.query(0, 0, len(st.data)-1, queryL, queryR)
+}
+
+// 在以treeID为根的线段树中[l, r]范围内，搜索区间[queryL, queryR]的值
+func (st *SegmentTree) query(treeIndex, l, r, queryL, queryR int) int {
+	if queryL == l && queryR == r {
+		return st.tree[treeIndex]
+	}
+	mid := (r-l)/2 + l
+	leftTreeIndex := st.leftChild(treeIndex)
+	rightTreeIndex := st.rightChild(treeIndex)
+	if queryL >= mid+1 {
+		// 结果全部分布在右区间
+		return st.query(rightTreeIndex, mid+1, r, queryL, queryR)
+	} else if queryR <= mid {
+		// 结果全部分布在左区间
+		return st.query(leftTreeIndex, l, mid, queryL, queryR)
+	}
+	// 结果分布在左右两个区间
+	leftRes := st.query(leftTreeIndex, l, mid, queryL, mid)
+	rightRes := st.query(rightTreeIndex, mid+1, r, mid+1, queryR)
+	return st.merger(leftRes, rightRes)
 }
 
 func (st *SegmentTree) Len() int {
