@@ -37,3 +37,16 @@ func (t *Trie) Add(word string) {
 		t.size++
 	}
 }
+
+// 查询单词word是否存在Trie中
+func (t *Trie) Contains(word string) bool {
+	cur := t.root
+	for i := 0; i < len(word); i++ {
+		c := word[i]
+		if cur.next[c] == nil {
+			return false
+		}
+		cur = cur.next[c]
+	}
+	return cur.isWord
+}
