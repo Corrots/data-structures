@@ -11,11 +11,14 @@ type Trie struct {
 }
 
 func newNode(isWord bool) *Node {
-	return &Node{isWord: isWord}
+	return &Node{
+		isWord: isWord,
+		next:   make(map[uint8]*Node),
+	}
 }
 
 func NewTrie() *Trie {
-	return &Trie{}
+	return &Trie{root: newNode(false)}
 }
 
 func (t *Trie) Len() int {
@@ -27,7 +30,7 @@ func (t *Trie) Add(word string) {
 	cur := t.root
 	for i := 0; i < len(word); i++ {
 		c := word[i]
-		if cur.next[c] == nil {
+		if _, ok := cur.next[c]; !ok {
 			cur.next[c] = newNode(false)
 		}
 		cur = cur.next[c]
@@ -43,7 +46,7 @@ func (t *Trie) Contains(word string) bool {
 	cur := t.root
 	for i := 0; i < len(word); i++ {
 		c := word[i]
-		if cur.next[c] == nil {
+		if _, ok := cur.next[c]; !ok {
 			return false
 		}
 		cur = cur.next[c]
