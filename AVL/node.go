@@ -19,6 +19,17 @@ func newTreeNode(k int, val interface{}) *TreeNode {
 	return &TreeNode{key: k, val: val, height: 1}
 }
 
+// 判断以n为根的二叉树是否为平衡二叉树
+func (n *TreeNode) isBalanced() bool {
+	if n == nil {
+		return true
+	}
+	if abs(n.getBalanceFactor()) > 1 {
+		return false
+	}
+	return n.left.isBalanced() && n.right.isBalanced()
+}
+
 // 获取节点n对应的高度
 func (n *TreeNode) getHeight() int {
 	if n == nil {
