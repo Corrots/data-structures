@@ -53,3 +53,16 @@ func (t *Trie) Contains(word string) bool {
 	}
 	return cur.isWord
 }
+
+// 查询Trie中是否存在以prefix为前缀的单词
+func (t *Trie) IsPrefix(prefix string) bool {
+	cur := t.root
+	for i := 0; i < len(prefix); i++ {
+		c := prefix[i]
+		if _, ok := cur.next[c]; !ok {
+			return false
+		}
+		cur = cur.next[c]
+	}
+	return true
+}
