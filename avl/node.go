@@ -8,7 +8,7 @@ import (
 type TreeNode struct {
 	key int
 	val interface{}
-	// 当前节点所处的高度，初始化为1
+	// 当前节点所处的高度，初始为1
 	height int
 	left   *TreeNode
 	right  *TreeNode
@@ -61,10 +61,15 @@ func (n *TreeNode) add(k int, val interface{}) *TreeNode {
 	// 更新height
 	n.height = max(n.left.getHeight(), n.right.getHeight()) + 1
 	// 计算平衡因子
-	bf := abs(n.getBalanceFactor())
-	if bf > 1 {
-		fmt.Println("unbalanced " + string(bf))
+	balanceFactor := n.getBalanceFactor()
+	if abs(balanceFactor) > 1 {
+		fmt.Println("unbalanced " + string(balanceFactor))
 	}
+	// 平衡维护
+	if balanceFactor > 1 && n.left.getBalanceFactor() >= 0 {
+
+	}
+
 	return n
 }
 
